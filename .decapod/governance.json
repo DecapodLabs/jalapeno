@@ -43,6 +43,15 @@
         "dist-workspace.toml",
         "scripts/check.py"
       ]
+    },
+    {
+      "id": "decapod-ci-final",
+      "summary": "Add the generated Decapod validation workflow and refresh all codebase-attested specs before final validation.",
+      "input_digest": "sha256:e514adf18aadbc462c9e798b094e362dc683c0d115cff8fe70e7fa11f0707849",
+      "proof_refs": [
+        ".decapod/managed/specs/.manifest.json",
+        ".github/workflows/decapod-validate.yml"
+      ]
     }
   ],
   "intents": {
@@ -111,11 +120,33 @@
     },
     "trajectory": {
       "active_boundaries": [
-        "Current claimed task and isolated work branch"
+        "Current claimed task and isolated work branch",
+        "reviewed v0.0.1 release pipeline candidate"
       ],
-      "artifact_hash": "sha256:c4665871c269f1c5e939227100981da1bd8af7c67b995d9f3061d6da73e53178",
-      "checks": [],
-      "current_phase": "intent",
+      "artifact_hash": "sha256:77a03086c23897657bbb86594d661f01100bb33ecbc85fd00f02deb1073dc1d8",
+      "checks": [
+        {
+          "name": "dist-target-plan",
+          "status": "passed"
+        },
+        {
+          "name": "library-cli-tests",
+          "status": "passed"
+        },
+        {
+          "name": "package-list",
+          "status": "passed"
+        },
+        {
+          "name": "publish-dry-run",
+          "status": "passed"
+        },
+        {
+          "name": "workflow-lint",
+          "status": "passed"
+        }
+      ],
+      "current_phase": "validation",
       "custody": {
         "events": [
           {
@@ -129,19 +160,75 @@
             "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "kind": "refined",
             "sequence": 3
+          },
+          {
+            "detail": "trajectory:branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
+            "event_id": "event:4",
+            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
+            "kind": "trajectory_step_recorded",
+            "sequence": 4
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 3,
+        "next_sequence": 4,
         "schema_version": "1.0.0",
-        "trajectories": {}
+        "trajectories": {
+          "branch_01M5RA8PAE4V4RVQTZC7SFKPQS": {
+            "evidence_only": true,
+            "id": "branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
+            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
+            "steps": [
+              {
+                "action": "validation",
+                "command": "cargo package --list --locked --allow-dirty",
+                "custody_event_id": "event:4",
+                "observations": [
+                  ".github/workflows/decapod-validate.yml",
+                  ".github/workflows/release-plz.yml",
+                  ".github/workflows/release.yml",
+                  "Cargo.toml",
+                  "scripts/check.py",
+                  "Local package archive verified at v0.0.1; dry run explicitly aborted upload.",
+                  "cargo-dist plan covered five requested desktop targets."
+                ],
+                "proof_refs": [
+                  "package-list",
+                  "publish-dry-run",
+                  "library-cli-tests",
+                  "workflow-lint",
+                  "dist-target-plan"
+                ],
+                "scope": [
+                  "root"
+                ],
+                "sequence": 4,
+                "validation_findings": []
+              }
+            ]
+          }
+        }
       },
-      "declared_commands": [],
+      "declared_commands": [
+        "actionlint .github/workflows/ci.yml .github/workflows/release.yml .github/workflows/release-plz.yml",
+        "cargo package --list --locked --allow-dirty",
+        "cargo publish --dry-run --locked --allow-dirty",
+        "dist plan --tag v0.0.1",
+        "python3 scripts/check.py"
+      ],
       "destination": "pull request",
-      "evidence": [],
+      "evidence": [
+        "Local package archive verified at v0.0.1; dry run explicitly aborted upload.",
+        "cargo-dist plan covered five requested desktop targets."
+      ],
       "inspected_files": [],
       "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
-      "modified_files": [],
+      "modified_files": [
+        ".github/workflows/decapod-validate.yml",
+        ".github/workflows/release-plz.yml",
+        ".github/workflows/release.yml",
+        "Cargo.toml",
+        "scripts/check.py"
+      ],
       "next_transitions": [
         "Refine plan and declare falsifiable checks"
       ],

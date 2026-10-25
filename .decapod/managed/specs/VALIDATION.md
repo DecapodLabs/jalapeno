@@ -76,8 +76,8 @@ those future capabilities are already delivered.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `941bc75f06871cd73f02a33c5e0c6592674cf664d2c2881ac2a7893374d40a48`
-- Significant implementation surfaces: `.github/` (3 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
+- Repository signal fingerprint: `d96f4192e1310151b40c0c07a2cc5a552c7862005f66a8ac76c49256eec918b1`
+- Significant implementation surfaces: `.github/` (4 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
