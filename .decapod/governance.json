@@ -42,6 +42,14 @@
       "proof_refs": [
         ".decapod/managed/specs/OPERATIONS.md"
       ]
+    },
+    {
+      "id": "reviewed-specs",
+      "summary": "Record code-bound review of architecture, interfaces and security for the narrowed first pass",
+      "input_digest": "sha256:b3acedef96a2a9542838e04d5d101adcf375fd301b94b6f3a5ef9bd102f1f40b",
+      "proof_refs": [
+        "src/main.rs"
+      ]
     }
   ],
   "intents": {
@@ -127,6 +135,29 @@
         "cargo test"
       ],
       "schema_version": "1.1.0",
+      "spec_reviews": [
+        {
+          "disposition": "updated",
+          "path": ".decapod/managed/specs/ARCHITECTURE.md",
+          "reason": "Compared Cargo.toml and main.rs: dependency-free binary, no current library/adapters or synthesis; future component boundaries preserve original brief.",
+          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
+          "spec_material_hash": "a483e1d3630704a374fee0cf1034cf8dd92c1b6812b89a48d3760dbe4c0b5605"
+        },
+        {
+          "disposition": "updated",
+          "path": ".decapod/managed/specs/INTERFACES.md",
+          "reason": "Compared main.rs argument matching and Cargo metadata: only help/version and usage exit 2 are implemented; Rust/recipe/engine APIs are explicitly planned.",
+          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
+          "spec_material_hash": "b2efe913ac7b0a9d1dcedbfeb82901f7be81a4a21f70b0c73dbefdd15a2dfe1f"
+        },
+        {
+          "disposition": "updated",
+          "path": ".decapod/managed/specs/SECURITY.md",
+          "reason": "Current code has no recipe parser, exports, FFI, auth or network. Private reference provenance and future resource/unsafe/release safeguards are requirements, not implemented capabilities.",
+          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
+          "spec_material_hash": "8efa870e8482a28ebbb74247b1018666908c1f05c8d05b2168e7efe42c296c81"
+        }
+      ],
       "state": "APPROVED",
       "stop_conditions": [],
       "title": "Initial entrypoint and complete product context",
@@ -135,7 +166,7 @@
       ],
       "unknowns": [],
       "unresolved_contradictions": [],
-      "updated_at": "1792887266Z"
+      "updated_at": "1792887476Z"
     },
     "trajectory": {
       "active_boundaries": [
