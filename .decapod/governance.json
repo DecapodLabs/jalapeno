@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "baseline": {
+    "accepted_commit": "dff8b99c7b0b4977024504dd78c2d3fd46a41b99"
+  },
+  "change": {
+    "id": "change_01M5R5T8R5NR7NND08DPFZ3XF9",
+    "base_commit": "dff8b99c7b0b4977024504dd78c2d3fd46a41b99",
+    "target_base": "origin/main"
+  },
+  "claims": {
+    "core-contract": {
+      "statement": "The original synthesis brief is preserved as planned requirements; this change implements only a minimal CLI entrypoint and aligned specifications",
+      "falsifier": "Specs omit a major prompt requirement or advertise synthesis, exports, adapters or publishing as already implemented",
+      "status": "open",
+      "proof_refs": [
+        ".decapod/managed/specs/VALIDATION.md"
+      ]
+    }
+  },
+  "checkpoints": [
+    {
+      "id": "initial-scaffold",
+      "summary": "Minimal main.rs and full original product context across all Decapod specs; later implementation explicitly deferred",
+      "input_digest": "sha256:53d1d18072c963db8c7ea805a94c387f79cb04e8e07546d3b68e68cec3536b32",
+      "proof_refs": [
+        ".decapod/managed/specs/VALIDATION.md"
+      ]
+    }
+  ],
+  "intents": {
+    "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9": {
+      "acceptance_criteria": [],
+      "assumptions": [],
+      "boundaries": [
+        "Current claimed task and isolated work branch"
+      ],
+      "constraints": [
+        "root"
+      ],
+      "created_sequence": 1,
+      "id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+      "out_of_scope": [],
+      "proof_requirements": [],
+      "raw_intent": "Implement and validate original Jalapeño v0.1.0 core, CLI, adapters, and release pipeline",
+      "refined_intent": "Implement and validate original Jalapeño v0.1.0 core, CLI, adapters, and release pipeline",
+      "status": "refined",
+      "updated_sequence": 3
+    }
+  },
+  "sections": {
+    "plan": {
+      "constraints": {
+        "file_touch_budget": null,
+        "forbidden_paths": []
+      },
+      "deferred_questions": [],
+      "human_questions": [],
+      "intent": "User narrowed implementation to a very simple initial main.rs. Account for the full original audiovisual toolkit prompt in aligned Decapod specs as future product requirements, explicitly separated from current scaffold.",
+      "phases": [],
+      "proof_hooks": [
+        "cargo fmt --all -- --check",
+        "cargo clippy --all-targets -- -D warnings",
+        "cargo test"
+      ],
+      "schema_version": "1.1.0",
+      "state": "APPROVED",
+      "stop_conditions": [],
+      "title": "Initial entrypoint and complete product context",
+      "todo_ids": [
+        "feat_01m5r5sjqedjj4fq"
+      ],
+      "unknowns": [],
+      "unresolved_contradictions": [],
+      "updated_at": "1792887266Z"
+    },
+    "trajectory": {
+      "active_boundaries": [
+        "Current claimed task and isolated work branch"
+      ],
+      "artifact_hash": "sha256:85b2a9536fe4eeb6291ace40421391ab9c4ece0da7b6ec22be76cfd9cc446889",
+      "checks": [],
+      "current_phase": "implementation",
+      "custody": {
+        "events": [
+          {
+            "event_id": "event:2",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "kind": "created",
+            "sequence": 2
+          },
+          {
+            "event_id": "event:3",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "kind": "refined",
+            "sequence": 3
+          },
+          {
+            "detail": "trajectory:branch_01M5R5T8TGW1ZXZ79D8W0R8620",
+            "event_id": "event:4",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "kind": "trajectory_step_recorded",
+            "sequence": 4
+          }
+        ],
+        "knowledge_candidates": [],
+        "next_sequence": 4,
+        "schema_version": "1.0.0",
+        "trajectories": {
+          "branch_01M5R5T8TGW1ZXZ79D8W0R8620": {
+            "evidence_only": true,
+            "id": "branch_01M5R5T8TGW1ZXZ79D8W0R8620",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "steps": [
+              {
+                "action": "implementation",
+                "command": "cargo fmt --all",
+                "custody_event_id": "event:4",
+                "observations": [
+                  "src/main.rs",
+                  ".decapod/managed/specs/INTENT.md",
+                  "User reduced scope to initial main.rs and full prompt context in specs; unverified broader draft moved outside repository"
+                ],
+                "proof_refs": [],
+                "scope": [
+                  "root"
+                ],
+                "sequence": 4,
+                "validation_findings": []
+              }
+            ]
+          }
+        }
+      },
+      "declared_commands": [
+        "cargo fmt --all"
+      ],
+      "destination": "pull request",
+      "evidence": [
+        "User reduced scope to initial main.rs and full prompt context in specs; unverified broader draft moved outside repository"
+      ],
+      "inspected_files": [],
+      "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+      "modified_files": [
+        ".decapod/managed/specs/INTENT.md",
+        "src/main.rs"
+      ],
+      "next_transitions": [
+        "Refine plan and declare falsifiable checks",
+        "Verify minimal CLI and spec alignment"
+      ],
+      "repo_scope": [
+        "root"
+      ],
+      "run_id": "branch_01M5R5T8TGW1ZXZ79D8W0R8620",
+      "schema_version": "1.1.0",
+      "shortcut_risk_signals": [],
+      "task_id": "feat_01m5r5sjqedjj4fq",
+      "tool_calls": [],
+      "unresolved_assumptions": []
+    }
+  }
+}

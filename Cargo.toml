@@ -1,0 +1,11 @@
+[package]
+name = "jalapeno"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "A procedural audiovisual synthesis toolkit, starting with a minimal CLI"
+license = "MIT"
+repository = "https://github.com/DecapodLabs/jalapeno"
+publish = false
+
+[dependencies]
