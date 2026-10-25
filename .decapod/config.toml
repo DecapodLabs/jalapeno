@@ -22,7 +22,7 @@ validation_buildkite_preflights = false
 [[proof.commands]]
 args = ["scripts/check.py"]
 command = "python3"
-description = "Guided init proof command 1"
+description = "Initial CLI formatting, lint, compilation and smoke checks"
 name = "rust"
 required = true
 

@@ -12,9 +12,10 @@
     "core-contract": {
       "statement": "The original synthesis brief is preserved as planned requirements; this change implements only a minimal CLI entrypoint and aligned specifications",
       "falsifier": "Specs omit a major prompt requirement or advertise synthesis, exports, adapters or publishing as already implemented",
-      "status": "open",
+      "status": "supported",
       "proof_refs": [
-        ".decapod/managed/specs/VALIDATION.md"
+        ".decapod/managed/specs/VALIDATION.md",
+        "scripts/check.py"
       ]
     }
   },
@@ -49,6 +50,14 @@
       "input_digest": "sha256:b3acedef96a2a9542838e04d5d101adcf375fd301b94b6f3a5ef9bd102f1f40b",
       "proof_refs": [
         "src/main.rs"
+      ]
+    },
+    {
+      "id": "initial-evidence",
+      "summary": "Record passing initial CLI smoke checks and full prompt coverage; retain portable canonical config and distinguish outstanding full PR readiness",
+      "input_digest": "sha256:621c261438f8370684c14621bdc65c6dbe1c72cba6144be1025a67c53e1bd309",
+      "proof_refs": [
+        ".decapod/managed/specs/VALIDATION.md"
       ]
     }
   ],
@@ -172,14 +181,29 @@
       "active_boundaries": [
         "Current claimed task and isolated work branch"
       ],
-      "artifact_hash": "sha256:d5aaf932645b21dd9714d98f9e9cf2c6a47366a906b03e664eaa39046f9fd998",
+      "artifact_hash": "sha256:8ef0ac316fcb2a902a113c62c99c5dcb176140b7ccef1737ec663d12c6a5f6ad",
+      "blockers": [
+        "Full repository readiness requires reviewed execution profile; local profile absolute tool bindings are not committed as machine state."
+      ],
       "checks": [
+        {
+          "name": "cli",
+          "status": "passed"
+        },
         {
           "name": "decapod validate",
           "status": "passed"
+        },
+        {
+          "name": "pr_readiness",
+          "status": "unavailable"
+        },
+        {
+          "name": "spec_alignment",
+          "status": "passed"
         }
       ],
-      "current_phase": "validation",
+      "current_phase": "verification",
       "custody": {
         "events": [
           {
@@ -207,10 +231,17 @@
             "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
             "kind": "trajectory_step_recorded",
             "sequence": 5
+          },
+          {
+            "detail": "trajectory:branch_01M5R5T8TGW1ZXZ79D8W0R8620",
+            "event_id": "event:6",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "kind": "trajectory_step_recorded",
+            "sequence": 6
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 5,
+        "next_sequence": 6,
         "schema_version": "1.0.0",
         "trajectories": {
           "branch_01M5R5T8TGW1ZXZ79D8W0R8620": {
@@ -251,6 +282,23 @@
                 ],
                 "sequence": 5,
                 "validation_findings": []
+              },
+              {
+                "action": "verification",
+                "custody_event_id": "event:6",
+                "observations": [
+                  "scripts/check.py passed fmt, clippy, cargo test/build and CLI help/version/error smoke; no algorithm tests exist. Full PR gate awaits a portable reviewed execution profile; machine-local tool bindings excluded from Git."
+                ],
+                "proof_refs": [
+                  "cli",
+                  "spec_alignment",
+                  "pr_readiness"
+                ],
+                "scope": [
+                  "root"
+                ],
+                "sequence": 6,
+                "validation_findings": []
               }
             ]
           }
@@ -263,6 +311,7 @@
       "destination": "pull request",
       "evidence": [
         "User reduced scope to initial main.rs and full prompt context in specs; unverified broader draft moved outside repository",
+        "scripts/check.py passed fmt, clippy, cargo test/build and CLI help/version/error smoke; no algorithm tests exist. Full PR gate awaits a portable reviewed execution profile; machine-local tool bindings excluded from Git.",
         "validation epoch ve_e9fdf33b77006135 completed with zero failures"
       ],
       "inspected_files": [],

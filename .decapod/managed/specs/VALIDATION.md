@@ -71,7 +71,7 @@ those future capabilities are already delivered.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
+- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
@@ -93,3 +93,17 @@ scope and evidence references. Keep logs and machine-local tool paths out of Git
 Reject changes that claim planned synthesis/adapters/releases are already working,
 lose a major requirement from this brief, publish prematurely, or add unrelated
 runtime dependencies. Expand tests when meaningful synthesis behavior is added.
+
+## First-pass verification evidence
+
+On 2026-10-24, `python3 scripts/check.py` passed formatting, clippy with denied
+warnings, `cargo test`, `cargo build`, and all help/version/usage smoke cases.
+`cargo test` currently runs zero unit tests; the separate CLI smoke cases exercise
+the implemented behavior. Decapod project/spec prerequisite checks passed after
+required headings and source-bound spec reviews were aligned.
+
+Full PR readiness has not passed: the repository still needs a reviewed execution
+profile. The controller's repository-local profile requires absolute installed-tool
+bindings in the tracked canonical config. Machine-specific bindings were kept out
+of Git; the portable check command is recorded instead. Do not treat project-check
+or the direct CLI checks as authorization to create a PR or publish a release.

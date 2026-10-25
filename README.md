@@ -26,10 +26,9 @@ future public contracts. The remaining specs cover numerical semantics, security
 operations, and validation. Each distinguishes current code from future work.
 
 Run `python3 scripts/check.py` for formatting, lint, compilation and CLI smoke checks.
-For a fresh checkout, copy `.decapod/config.example.toml` to the ignored
-`.decapod/config.toml`, then initialize Decapod and review local proof tool bindings.
-The example preserves portable product context; absolute installed-tool paths and
-execution state stay local.
+The tracked `.decapod/config.toml` preserves portable product context and the
+check command. Full Decapod PR readiness still needs a reviewed execution profile;
+no machine-specific tool paths or execution state are committed.
 
 Development checks:
 

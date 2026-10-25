@@ -13,9 +13,10 @@ falsifiable claims and actual validation evidence. GitHub PR review remains the
 acceptance boundary. Record a concrete validation/permission blocker if a required
 gate is unavailable; do not invent success or bypass it. Keep machine-local proof
 tool bindings and execution artifacts outside published source. The tracked
-`.decapod/config.example.toml` carries portable product intent. Copy it to the
-ignored `.decapod/config.toml` and review installed tools for the local readiness
-profile; machine-specific tool paths are intentionally not committed.
+`.decapod/config.toml` carries portable product intent and the check command.
+Full PR readiness still requires a reviewed execution profile. The installed
+controller's local profile requires tracked absolute tool bindings; this first
+pass does not commit machine-specific paths or claim that gate has passed.
 
 ## Required future release process
 
@@ -63,7 +64,7 @@ claiming a publication occurred.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
+- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->

@@ -15,5 +15,3 @@
 .DS_Store
 .env
 
-# Absolute installed-tool bindings are machine-local.
-.decapod/config.toml
