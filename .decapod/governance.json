@@ -62,6 +62,19 @@
         ".decapod/managed/specs/INTERFACES.md",
         ".decapod/managed/specs/SECURITY.md"
       ]
+    },
+    {
+      "id": "proof-profile-reconciled",
+      "summary": "Reconcile reviewed proof source inventory to all four current workflow files, refresh the generated spec manifest, and record a fresh validation trajectory.",
+      "input_digest": "sha256:3fc2d529ae5d9199c2908fb20779426687ca5928402fae85e8872051a60e00b4",
+      "proof_refs": [
+        ".decapod/config.toml",
+        ".decapod/managed/specs/.manifest.json",
+        ".github/workflows/ci.yml",
+        ".github/workflows/decapod-validate.yml",
+        ".github/workflows/release-plz.yml",
+        ".github/workflows/release.yml"
+      ]
     }
   ],
   "intents": {
@@ -69,7 +82,7 @@
       "acceptance_criteria": [],
       "assumptions": [],
       "boundaries": [
-        "Current claimed task and isolated work branch"
+        "current v0.0.1 release automation candidate"
       ],
       "constraints": [
         "root"
@@ -78,8 +91,8 @@
       "id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
       "out_of_scope": [],
       "proof_requirements": [],
-      "raw_intent": "Prepare v0.0.1 release automation\n\nSet up a coherent release-plz version/changelog flow and cargo-dist binary distribution for Jalapeño, prepare Cargo metadata for the requested first crates.io version v0.0.1, verify registry name and package dry-run/content, and document the exact release/publishing process. Do not publish directly; crates.io publication must occur only via the approved merged-release workflow after credentials and acceptance are available. Preserve complete audiovisual-toolkit prompt context in aligned specs.",
-      "refined_intent": "Prepare v0.0.1 release automation\n\nSet up a coherent release-plz version/changelog flow and cargo-dist binary distribution for Jalapeño, prepare Cargo metadata for the requested first crates.io version v0.0.1, verify registry name and package dry-run/content, and document the exact release/publishing process. Do not publish directly; crates.io publication must occur only via the approved merged-release workflow after credentials and acceptance are available. Preserve complete audiovisual-toolkit prompt context in aligned specs.",
+      "raw_intent": "Prepare reviewable v0.0.1 release automation without publishing directly.",
+      "refined_intent": "Configure and validate the release-plz/cargo-dist pipeline, package and Decapod proof profile for the exact release setup candidate.",
       "status": "refined",
       "updated_sequence": 3
     }
@@ -184,15 +197,10 @@
     },
     "trajectory": {
       "active_boundaries": [
-        "Current claimed task and isolated work branch",
-        "reviewed v0.0.1 release pipeline candidate"
+        "current v0.0.1 release automation candidate"
       ],
-      "artifact_hash": "sha256:16afeb5c483b6c1cdfbe91001055638d6f6941859dd98e4fa6dadc0e135ec995",
+      "artifact_hash": "sha256:836e063110f450fc6628a7d5337436e6fbe916db2badb1623d82576724fec525",
       "checks": [
-        {
-          "name": "decapod validate",
-          "status": "passed"
-        },
         {
           "name": "dist-target-plan",
           "status": "passed"
@@ -230,41 +238,28 @@
             "sequence": 3
           },
           {
-            "detail": "trajectory:branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
+            "detail": "trajectory:branch_release_v0001_01m5rb",
             "event_id": "event:4",
             "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "kind": "trajectory_step_recorded",
             "sequence": 4
-          },
-          {
-            "detail": "trajectory:branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
-            "event_id": "event:5",
-            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
-            "kind": "trajectory_step_recorded",
-            "sequence": 5
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 5,
+        "next_sequence": 4,
         "schema_version": "1.0.0",
         "trajectories": {
-          "branch_01M5RA8PAE4V4RVQTZC7SFKPQS": {
+          "branch_release_v0001_01m5rb": {
             "evidence_only": true,
-            "id": "branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
+            "id": "branch_release_v0001_01m5rb",
             "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "steps": [
               {
                 "action": "validation",
-                "command": "cargo package --list --locked --allow-dirty",
+                "command": "python3 scripts/check.py",
                 "custody_event_id": "event:4",
                 "observations": [
-                  ".github/workflows/decapod-validate.yml",
-                  ".github/workflows/release-plz.yml",
-                  ".github/workflows/release.yml",
-                  "Cargo.toml",
-                  "scripts/check.py",
-                  "Local package archive verified at v0.0.1; dry run explicitly aborted upload.",
-                  "cargo-dist plan covered five requested desktop targets."
+                  "Reconciled profile declares all four discovered GitHub workflow sources; exact-source project-check passed on current commit."
                 ],
                 "proof_refs": [
                   "package-list",
@@ -278,24 +273,6 @@
                 ],
                 "sequence": 4,
                 "validation_findings": []
-              },
-              {
-                "action": "validation",
-                "command": "decapod validate",
-                "custody_event_id": "event:5",
-                "observations": [
-                  ".decapod/governance.json",
-                  ".decapod/governance.json",
-                  "validation epoch ve_654e812a838503a3 completed with zero failures"
-                ],
-                "proof_refs": [
-                  "decapod validate"
-                ],
-                "scope": [
-                  "root"
-                ],
-                "sequence": 5,
-                "validation_findings": []
               }
             ]
           }
@@ -303,36 +280,21 @@
       },
       "declared_commands": [
         "actionlint .github/workflows/ci.yml .github/workflows/release.yml .github/workflows/release-plz.yml",
-        "cargo package --list --locked --allow-dirty",
         "cargo publish --dry-run --locked --allow-dirty",
-        "decapod validate",
         "dist plan --tag v0.0.1",
         "python3 scripts/check.py"
       ],
       "destination": "pull request",
       "evidence": [
-        "Local package archive verified at v0.0.1; dry run explicitly aborted upload.",
-        "cargo-dist plan covered five requested desktop targets.",
-        "validation epoch ve_654e812a838503a3 completed with zero failures"
+        "Reconciled profile declares all four discovered GitHub workflow sources; exact-source project-check passed on current commit."
       ],
       "inspected_files": [],
       "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
-      "modified_files": [
-        ".decapod/governance.json",
-        ".github/workflows/decapod-validate.yml",
-        ".github/workflows/release-plz.yml",
-        ".github/workflows/release.yml",
-        "Cargo.toml",
-        "scripts/check.py"
-      ],
-      "next_transitions": [
-        "Refine plan and declare falsifiable checks",
-        "publish"
-      ],
+      "modified_files": [],
       "repo_scope": [
         "root"
       ],
-      "run_id": "branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
+      "run_id": "branch_release_v0001_01m5rb",
       "schema_version": "1.1.0",
       "shortcut_risk_signals": [],
       "task_id": "code_01m5ra7f5ntqdh86",

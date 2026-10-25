@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1.0",
   "template_version": "scaffold-v5",
-  "generated_at": "1792892134Z",
+  "generated_at": "1792892342Z",
   "repo_signal_fingerprint": "d96f4192e1310151b40c0c07a2cc5a552c7862005f66a8ac76c49256eec918b1",
   "declared_capabilities": [],
   "capability_definition_version": "1.0.0",
-  "config_input_hash": "9130183ae364afbd057f69f3f6a6b96772375c5e03a92c7c0df93e73219d4eeb",
+  "config_input_hash": "6478d7e374206e41f413f445306e86382c1fdb74f1d2f11a8427ef9d3279716b",
   "spec_input_hash": "b74a823567b21e7667c49220eb6151b55a722d1b3db934a86746708bd554e0e7",
   "decapod_release": "0.121.1",
   "entrypoints": [

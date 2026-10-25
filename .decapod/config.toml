@@ -44,11 +44,16 @@ provider = "decapod"
 
 [proof.required_profile]
 id = "repo.pr-readiness.v1"
-reviewed_sources_digest = "sha256:90cbeb7387e94476ca24eebe63dac9dde4eae051f7644146bdcb5b4652abb986"
+reviewed_sources_digest = "sha256:b77f07b12b3a066c36ced77e85b6d4e8ddabb87e2f1b62a447feb74cdd41a3eb"
 
 [proof.repository_contract]
-reviewed_commands_digest = "sha256:3a900e9d574d584daa5dd5e8ec9df2844ed598d05c394da3592560f3008c73a0"
-source_coverage = [{ source = ".github/workflows/ci.yml", commands = ["rust"] }]
+reviewed_commands_digest = "sha256:e2d3fd41d5cff855960bfe43171e6b46daffff647f37eba7873dcd64120b36e9"
+source_coverage = [
+  { source = ".github/workflows/ci.yml", commands = ["rust"] },
+  { source = ".github/workflows/decapod-validate.yml", commands = ["rust"] },
+  { source = ".github/workflows/release-plz.yml", commands = ["rust"] },
+  { source = ".github/workflows/release.yml", commands = ["rust"] },
+]
 
 [proof.repository_contract.executions.rust]
 program = "/usr/bin/python3"
