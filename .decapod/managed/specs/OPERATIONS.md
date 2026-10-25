@@ -4,11 +4,12 @@
 
 Run the tone and icon commands documented in README and INTERFACES. Rust callers
 use `audio::Tone` and `visual::Icon`. The program needs no runtime services or
-external codecs. `Cargo.toml` stays at `0.1.0` with publishing disabled; no crate,
-release archive or engine integration is claimed.
+external codecs. `Cargo.toml` is prepared as `0.0.1`; no crate or release archive
+has been published and no engine integration is claimed.
 
 Run `python3 scripts/check.py` for fmt, clippy, unit/property checks and decoded
-WAV/SVG CLI smoke checks. GitHub CI uses this same script on Linux/macOS/Windows.
+WAV/SVG CLI smoke checks. It also packages the exact crate source set and runs
+`cargo publish --dry-run`. GitHub CI uses this same script on Linux/macOS/Windows.
 Actual hosted execution results must be observed independently; authored CI is
 not execution proof.
 
@@ -28,15 +29,41 @@ profile. Passing local readiness proves this native scope, not the hosted CI
 matrix or releases. Other platforms can use the check script; native Decapod
 profiles there remain follow-on work. GitHub PR review remains acceptance.
 
-## Required future release process
+## Release process
 
-Study the actual Decapod and Dactyl workflows before implementing. Initial
-orientation confirmed the distinction: Decapod uses release-plz and cargo-dist;
-Dactyl uses release-please with a GitHub App token and CARGO_REGISTRY_TOKEN.
-Adopt one coherent authority, preferably release-plz for version management and
-cargo-dist for standalone distribution, without copying Decapod's larger machinery.
+Decapod's current release workflow and Dactyl's release-please workflow were
+inspected. Jalapeño uses the smaller release-plz + cargo-dist split, with the
+shared DecapodLabs release-manager GitHub App and a single tag/release owner.
 
-The future pipeline must provide:
+The current pipeline uses release-plz as the sole version/changelog and crate
+publisher authority, and cargo-dist as the GitHub binary distribution authority.
+`.release-plz.toml` names the changelog and `v{{ version }}` tags, disables
+release-plz GitHub releases to avoid a second release writer, and sets
+`release_always = false` so ordinary main pushes never publish.
+`.github/workflows/release-plz.yml` opens release PRs on `main` and runs crate
+publication in the `release` environment. It uses the shared DecapodLabs
+release-manager GitHub App for PR/tag operations and supports a release-PR-only
+dispatch. Merging the release-plz PR is the publication
+boundary. The generated `.github/workflows/release.yml` builds and attaches
+cargo-dist archives/installers and checksums when the version tag is pushed. CI
+runs on the release PR, and the publication workflow reruns package contents,
+tests and dry-run publishing on all three host OSes after merge before publishing.
+The dist workflow also has reviewed permission, concurrency and retry-safety edits.
+`allow-dirty` records this deliberate difference from cargo-dist's generated
+template; review the edits against the generator whenever upgrading cargo-dist.
+
+The initial target is `0.0.1`, as explicitly requested. No tag or version history
+exists in the repository, and the crates.io index had no `jalapeno` entry at the
+time of this check; this is availability evidence, not a name reservation. Before first publication,
+the release environment needs a scoped `CARGO_REGISTRY_TOKEN`; the GitHub App
+credentials have been shared with this repository for PR/tag operations. Add
+required environment reviewers if a separate deployment approval is wanted.
+crates.io Trusted Publishing cannot be configured until
+the crate has its initial manual publication, so the first release uses that
+credential; configure OIDC for subsequent releases as a separate reviewed update.
+Publication is never performed directly from a feature branch.
+
+The pipeline must continue to provide:
 
 - Conventional-commit semantic versioning, automated release PRs and changelog updates.
 - Publication only after the intended release PR is merged and required validation
@@ -54,9 +81,11 @@ The future pipeline must provide:
 
 On 2026-10-24 the exact `jalapeno` registry API and sparse-index entries returned
 404. This observation is not a name reservation; recheck at first publication.
-Do not silently rename if it becomes occupied. Start at `0.1.0` unless authoritative
-repository/registry history requires otherwise. Review authentication availability,
-registry ownership, protected environment and validation before enabling publishing.
+Do not silently rename if it becomes occupied. The requested initial version is
+`0.0.1`; subsequent versions follow Conventional Commits from that base. Review
+authentication availability,
+registry ownership, release environment and any configured reviewer gate before
+enabling publishing.
 
 ## Future documentation and recovery
 
@@ -74,8 +103,8 @@ claiming a publication occurred.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494`
-- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
+- Repository signal fingerprint: `941bc75f06871cd73f02a33c5e0c6592674cf664d2c2881ac2a7893374d40a48`
+- Significant implementation surfaces: `.github/` (3 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 

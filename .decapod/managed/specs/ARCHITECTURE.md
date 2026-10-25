@@ -2,8 +2,9 @@
 
 ## Current Facts
 
-`Cargo.toml` defines one Rust 2024 package named `jalapeno`, version `0.1.0`,
-with no dependencies and publishing disabled. `src/lib.rs` exposes `audio` and
+`Cargo.toml` defines one Rust 2024 package named `jalapeno`, prepared as version
+`0.0.1`, with no dependencies and a narrow source whitelist for publication.
+`src/lib.rs` exposes `audio` and
 `visual`. `audio::Tone` validates parameters and streams additive mono PCM16 WAV.
 `visual::Icon` validates parameters, samples harmonic contours and exports SVG.
 `src/main.rs` parses options and delegates synthesis to this public library.
@@ -73,7 +74,18 @@ errors exit 3. The temporary file is cleaned up on an ordinary export failure.
 Current use is `cargo run`/`cargo build` or a Rust dependency by path. CI runs the
 same check script on Linux/macOS/Windows. Native Decapod readiness currently
 uses a reviewed macOS ARM64 tool layout; it does not prove the hosted matrix ran.
-There is no release workflow or engine plugin yet.
+`.release-plz.toml` configures Conventional Commit changelog/version PRs and the
+`release-plz.yml` workflow runs only on `main` or a manual `main` dispatch. It uses
+the shared DecapodLabs release-manager GitHub App for PR/tag operations and the
+Actions `release` environment for the initial crates.io credential.
+`release_always = false` limits publication to merging the intended
+`release-plz-*` PR. Release-plz owns crate publication and version tags;
+cargo-dist owns GitHub release artifacts. Its 0.32.0 `release.yml` builds shell
+and PowerShell installers, platform archives and checksums for configured
+targets. Reviewed local edits scope permissions, serialize releases and make
+GitHub release upload retries idempotent; `dist-workspace.toml` requires these
+edits to be reviewed on cargo-dist upgrades. No release has been published and
+there is no engine plugin.
 
 ## Data and Contracts
 
@@ -84,8 +96,9 @@ and SEMANTICS. Existing output paths are never replaced by the CLI.
 
 ## Delivery Plan
 
-Complete tones/icons and exact-candidate proof first. Follow with reusable richer
-synthesis, recipes and composition, the full menu demo, then engines and releases.
+Complete tones/icons and exact-candidate proof first. The current follow-up
+prepares the initial crate release. Then add reusable richer synthesis, recipes
+and composition, the full menu demo, and engines.
 
 ## Risks and Mitigations
 
@@ -98,7 +111,7 @@ protect real behavior. Specs distinguish the original roadmap from current code.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494`
-- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
+- Repository signal fingerprint: `941bc75f06871cd73f02a33c5e0c6592674cf664d2c2881ac2a7893374d40a48`
+- Significant implementation surfaces: `.github/` (3 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->

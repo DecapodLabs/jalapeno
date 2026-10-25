@@ -1,157 +1,68 @@
 {
   "schema_version": "1.0.0",
   "baseline": {
-    "accepted_commit": "dff8b99c7b0b4977024504dd78c2d3fd46a41b99"
+    "accepted_commit": "c02262b84c8a8de70bfcdb92e11eb09409305d2c",
+    "unresolved": {
+      "claim:core-contract": {
+        "falsifier": "Tone/icon exports fail decoded format, mathematical, resource, input or output-preservation checks, or specs misstate current scope",
+        "proof_refs": [
+          "scripts/check.py",
+          "tests/synthesis.rs"
+        ],
+        "statement": "The dependency-free Rust library and CLI generate bounded additive PCM WAV tones and harmonic SVG icons, with decoded-export and numerical tests; the rest of the original brief remains roadmap.",
+        "status": "open"
+      }
+    }
   },
   "change": {
-    "id": "change_01M5R5T8R5NR7NND08DPFZ3XF9",
-    "base_commit": "dff8b99c7b0b4977024504dd78c2d3fd46a41b99",
+    "id": "change_01M5RA8P7N9M174WN0K5KAK207",
+    "base_commit": "c02262b84c8a8de70bfcdb92e11eb09409305d2c",
     "target_base": "origin/main"
-  },
-  "claims": {
-    "core-contract": {
-      "statement": "The dependency-free Rust library and CLI generate bounded additive PCM WAV tones and harmonic SVG icons, with decoded-export and numerical tests; the rest of the original brief remains roadmap.",
-      "falsifier": "Tone/icon exports fail decoded format, mathematical, resource, input or output-preservation checks, or specs misstate current scope",
-      "status": "open",
-      "proof_refs": [
-        "scripts/check.py",
-        "tests/synthesis.rs"
-      ]
-    }
   },
   "checkpoints": [
     {
-      "id": "initial-scaffold",
-      "summary": "Minimal main.rs and full original product context across all Decapod specs; later implementation explicitly deferred",
-      "input_digest": "sha256:53d1d18072c963db8c7ea805a94c387f79cb04e8e07546d3b68e68cec3536b32",
+      "id": "release-pipeline-v0.0.1",
+      "summary": "Prepare pinned release-plz/cargo-dist workflows, v0.0.1 crate metadata and package allowlist, hosted validation, release documentation, and current Decapod scope alignment.",
+      "input_digest": "sha256:df6d02ae613221e7e209d27dfcdda24b426b6a6e1962b7d1cf1bef54a5fbe964",
       "proof_refs": [
-        ".decapod/managed/specs/VALIDATION.md"
-      ]
-    },
-    {
-      "id": "spec-alignment",
-      "summary": "Align required spec sections and capability metadata; complete initial CLI proof contract with local tool bindings kept out of Git",
-      "input_digest": "sha256:c383f4d618a1074ebd1d37d505a86cdcebe945ab047af95c78e5ae5241e6ff89",
-      "proof_refs": [
+        ".github/workflows/release-plz.yml",
+        ".github/workflows/release.yml",
+        "CHANGELOG.md",
+        "dist-workspace.toml",
         "scripts/check.py"
       ]
     },
     {
-      "id": "concise-governance",
-      "summary": "Keep project overrides minimal and document portable configuration separately from local proof bindings",
-      "input_digest": "sha256:33a7ae15d03dac5e6753984e7bf3ab04f1e22d7432adf7e8d6964970eaef421b",
+      "id": "release-pipeline-v0.0.1-final",
+      "summary": "Finalize release-plz/cargo-dist workflows, v0.0.1 package metadata, validation and docs after clean-diff review.",
+      "input_digest": "sha256:d2539bc85ac3482c16d1ee8359de5cb0457fb48c8d148b2bb5582650a45213ff",
       "proof_refs": [
-        ".decapod/managed/specs/OPERATIONS.md"
-      ]
-    },
-    {
-      "id": "reviewed-specs",
-      "summary": "Record code-bound review of architecture, interfaces and security for the narrowed first pass",
-      "input_digest": "sha256:b3acedef96a2a9542838e04d5d101adcf375fd301b94b6f3a5ef9bd102f1f40b",
-      "proof_refs": [
-        "src/main.rs"
-      ]
-    },
-    {
-      "id": "initial-evidence",
-      "summary": "Record passing initial CLI smoke checks and full prompt coverage; retain portable canonical config and distinguish outstanding full PR readiness",
-      "input_digest": "sha256:621c261438f8370684c14621bdc65c6dbe1c72cba6144be1025a67c53e1bd309",
-      "proof_refs": [
-        ".decapod/managed/specs/VALIDATION.md"
-      ]
-    },
-    {
-      "id": "functional-tones-icons",
-      "summary": "Implement the scoped audio/WAV and harmonic icon/SVG core and CLI, focused tests, CI and reviewed native proof contract; verification pending",
-      "input_digest": "sha256:ead1a42f4e8fc91e1d519c27d1f5a0c3435de8d73671a63343e084a9a6992e72",
-      "proof_refs": [
-        "scripts/check.py",
-        "tests/synthesis.rs"
-      ]
-    },
-    {
-      "id": "tone-icon-readiness-run",
-      "summary": "Preserve the completed implementation trajectory and successful bootstrap prerequisites before full native execution",
-      "input_digest": "sha256:0038612d74055381021be10065f94aad475d66d9308c265c6624ee858de5fed1",
-      "proof_refs": [
-        "scripts/check.py",
-        "tests/synthesis.rs"
-      ]
-    },
-    {
-      "id": "clippy-short-writer",
-      "summary": "Fix the short-writer test call identified by actual native clippy; preserve all required checks",
-      "input_digest": "sha256:64678062f13ec195d9b6c0340a4a756cbc88530216dcae47711ba22f22e528a7",
-      "proof_refs": [
-        "tests/synthesis.rs"
+        ".github/workflows/release-plz.yml",
+        ".github/workflows/release.yml",
+        "CHANGELOG.md",
+        "dist-workspace.toml",
+        "scripts/check.py"
       ]
     }
   ],
   "intents": {
-    "intent:tones-icons-validation": {
+    "intent:change_01M5RA8P7N9M174WN0K5KAK207": {
       "acceptance_criteria": [],
       "assumptions": [],
       "boundaries": [
-        "No proprietary game content, secret or runtime machine state in Git; no unreviewed publication."
+        "Current claimed task and isolated work branch"
       ],
       "constraints": [
-        "Core, CLI, mathematical/export tests, native readiness, CI and aligned specs"
+        "root"
       ],
       "created_sequence": 1,
-      "id": "intent:tones-icons-validation",
+      "id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
       "out_of_scope": [],
       "proof_requirements": [],
-      "raw_intent": "User requests a tight functional solution for tones and icons, while preserving original toolkit context in specs.",
-      "refined_intent": "Validate the committed dependency-free tone/WAV and harmonic icon/SVG implementation and open the PR after exact-candidate readiness passes.",
+      "raw_intent": "Prepare v0.0.1 release automation\n\nSet up a coherent release-plz version/changelog flow and cargo-dist binary distribution for Jalapeño, prepare Cargo metadata for the requested first crates.io version v0.0.1, verify registry name and package dry-run/content, and document the exact release/publishing process. Do not publish directly; crates.io publication must occur only via the approved merged-release workflow after credentials and acceptance are available. Preserve complete audiovisual-toolkit prompt context in aligned specs.",
+      "refined_intent": "Prepare v0.0.1 release automation\n\nSet up a coherent release-plz version/changelog flow and cargo-dist binary distribution for Jalapeño, prepare Cargo metadata for the requested first crates.io version v0.0.1, verify registry name and package dry-run/content, and document the exact release/publishing process. Do not publish directly; crates.io publication must occur only via the approved merged-release workflow after credentials and acceptance are available. Preserve complete audiovisual-toolkit prompt context in aligned specs.",
       "status": "refined",
       "updated_sequence": 3
-    }
-  },
-  "epochs": {
-    "ve_5f1911a6b3992eb4": {
-      "constitution_hash": "sha256:c4bf1306ead286d685e3d2eebcb6a55ea286b7796998a846d85c98d057d82370",
-      "constitution_version": "embedded-docs@0.121.1",
-      "epoch_id": "ve_5f1911a6b3992eb4",
-      "evaluator_identity": "decapod-validate@0.121.1",
-      "evaluator_set_hash": "sha256:19d875a8e3263f58cae1df07f9a44331409226a08d418dd2db9222a85cf2a656",
-      "generated_specs_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
-      "generated_specs_manifest_hash": "sha256:fe9a9d0fc02c564cc4b2bbb87f4f8ab309e7757c2f1c56a3942c62ca0dca343d",
-      "material_hashes": {
-        "constitution:core/DECAPOD": "sha256:c4bf1306ead286d685e3d2eebcb6a55ea286b7796998a846d85c98d057d82370",
-        "generated_spec:.decapod/managed/specs/ARCHITECTURE.md": "sha256:933e551e737c460bf26597ca9711d34b1e4758f939954ec057504f63ee89b36f",
-        "generated_spec:.decapod/managed/specs/INTENT.md": "sha256:117d1d1278035f2a558d716490c3447c1aca2cf72ff5ff3b82b32534ccc83873",
-        "generated_spec:.decapod/managed/specs/INTERFACES.md": "sha256:2af70abb5f72efbbee955d4f47e4adc62fa4556f6edb6b649a34ec59efa3e719",
-        "generated_spec:.decapod/managed/specs/OPERATIONS.md": "sha256:82007b72de7d114f1cd07f4619862dc6f306ac618fd6e070da797237790be6fd",
-        "generated_spec:.decapod/managed/specs/README.md": "sha256:20b145dd9ee11dddaa07ac882bb75fcf90319533f6bdb1ed37d1c27d35be7841",
-        "generated_spec:.decapod/managed/specs/SECURITY.md": "sha256:e24c40bc52cfa1657083ef2673967be847eb5df878b0fdcdd1265de7a6a3f883",
-        "generated_spec:.decapod/managed/specs/SEMANTICS.md": "sha256:3992339af62fa516dcdbf97d0c433a8adc08323296fa1668a4f9119b8464f1d1",
-        "generated_spec:.decapod/managed/specs/VALIDATION.md": "sha256:98ef70f3b593b04dd6534bc32b868a106659ad436a72eeec24b33e232630fbe9",
-        "generated_specs_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
-        "generated_specs_manifest": "sha256:fe9a9d0fc02c564cc4b2bbb87f4f8ab309e7757c2f1c56a3942c62ca0dca343d",
-        "governance_context": "sha256:e9e45b9b7c054bc7f56c30682821c47a880dc4f4de898c453aebdd1db67e391a",
-        "governance_material:.decapod/managed/Dockerfile.decapod": "sha256:639ba525a590af6f763f3645dd458959e9dfb57f92e4e6bc9763f38052957f2c",
-        "governance_material:AGENTS.md": "sha256:a827284dd27ce5e6613bbe6153280892679874cc5288a3eb34faccdb9506bfdf",
-        "governance_material:CLAUDE.md": "sha256:84418d5796cf9e7f60b53b2b86b6bdb63764b6506542b2d998430dfc9b6dd28a",
-        "governance_material:CODEX.md": "sha256:7619fb705a3ec74a4f6db854194a3883e9d8694582f33e93de1d9e75ff687d61",
-        "governance_material:GEMINI.md": "sha256:4ebada4c9637493a11e93ddf260550d68ec96a29afae675ad0ffcd86453086a6",
-        "governance_section:claims": "sha256:a3a327b524f0994ec69c4e7826cecca881fbc3367c3623d2d25bf77f5d8f7d51",
-        "governance_section:plan": "sha256:0ca7537fcdfd2063aee8079a4e09b943afd9a61e216467b267e3469d938fd411",
-        "living_spec_material:.decapod/managed/specs/ARCHITECTURE.md": "sha256:cdfae2b04e7478cb6d4cb79fb52a9ce4559e1f1fcd5666df4073253004b54b98",
-        "living_spec_material:.decapod/managed/specs/INTENT.md": "sha256:188c7352186bb4a5c44e5c220b1c6790a7bb1f435c95690ee61357e4200b2c05",
-        "living_spec_material:.decapod/managed/specs/INTERFACES.md": "sha256:52944514fb9cc590768027427f500b9359392d9dacaf5e84a21ae55437c70972",
-        "living_spec_material:.decapod/managed/specs/OPERATIONS.md": "sha256:7c0c5cfca1ba8a96ed01c42daab809f21d54d8dd32053a05e3b7e1766d5c796c",
-        "living_spec_material:.decapod/managed/specs/README.md": "sha256:55110354829e0ec66e5305baa8871321aeb586613635a1e148c8ebd2e3667c8c",
-        "living_spec_material:.decapod/managed/specs/SECURITY.md": "sha256:6d39f2ed448d4970d51995a4aa08881e8f333fd276d9d8a21000bdec373c010b",
-        "living_spec_material:.decapod/managed/specs/SEMANTICS.md": "sha256:59a7a3efedb5f5bf3d379cbe9fb26177982b1556ec3cded98f49ea26d925048b",
-        "living_spec_material:.decapod/managed/specs/VALIDATION.md": "sha256:f9049f8588a27d25a25e2d34894cb2ece7e82ab32346c12241850264350ebe11",
-        "proof_rubric": "sha256:99e8ef25629da391e9b479db9fff52b82f340224f7a69d8a88d2992ae8e90466",
-        "validation_profile": "sha256:37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f"
-      },
-      "proof_rubric": "decapod-validate/current-proof-v1",
-      "proof_rubric_hash": "sha256:99e8ef25629da391e9b479db9fff52b82f340224f7a69d8a88d2992ae8e90466",
-      "schema_version": "1.0.0",
-      "validation_profile": "default",
-      "validation_profile_hash": "sha256:37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f"
     }
   },
   "sections": {
@@ -162,390 +73,87 @@
       },
       "deferred_questions": [],
       "human_questions": [],
-      "intent": "Deliver a tight working first pass: a small dependency-free Rust library and CLI for additive tones to PCM WAV and harmonic icons to SVG, with real export validation and aligned Decapod specs; preserve the larger original brief as roadmap.",
+      "intent": "Prepare a reviewable release-plz and cargo-dist pipeline for Jalapeño's requested initial crates.io release v0.0.1. Publish only from the merged release-plz PR event after successful package-content, dry-run and three-platform validation. Keep crate publication and GitHub binary hosting under one non-competing release flow. Preserve the original audiovisual toolkit prompt in the aligned living specs; do not publish directly.",
       "phases": [],
       "proof_hooks": [
-        "python3 scripts/check.py"
+        "cargo package --list --locked",
+        "cargo publish --dry-run --locked",
+        "dist plan --tag v0.0.1",
+        "python3 scripts/check.py",
+        "decapod validate"
       ],
       "schema_version": "1.1.0",
       "spec_reviews": [
         {
-          "disposition": "unchanged_with_reason",
+          "disposition": "updated",
           "path": ".decapod/managed/specs/ARCHITECTURE.md",
-          "reason": "The clippy fix changes test call syntax only. Core/CLI layering, bounded exporters, lack of dependencies and native proof topology still match implementation.",
-          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
-          "spec_material_hash": "cdfae2b04e7478cb6d4cb79fb52a9ce4559e1f1fcd5666df4073253004b54b98"
+          "reason": "Records the v0.0.1 crate metadata, release-plz/cargo-dist authority split, workflow behavior and release target set.",
+          "reviewed_code_fingerprint": "941bc75f06871cd73f02a33c5e0c6592674cf664d2c2881ac2a7893374d40a48",
+          "spec_material_hash": "e1ff264ebafd90263474dfedfd953808d905b30fc644ce61ab4b8ef344a00f7e"
         },
         {
-          "disposition": "unchanged_with_reason",
-          "path": ".decapod/managed/specs/INTERFACES.md",
-          "reason": "Only a needless borrow in the short-writer failure test was removed after actual clippy execution; public tone/icon APIs, options, defaults and ownership are unchanged.",
-          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
-          "spec_material_hash": "52944514fb9cc590768027427f500b9359392d9dacaf5e84a21ae55437c70972"
-        },
-        {
-          "disposition": "unchanged_with_reason",
+          "disposition": "updated",
           "path": ".decapod/managed/specs/SECURITY.md",
-          "reason": "Only redundant test borrowing changed; finite/work limits, fixed SVG, no unsafe code and output preservation semantics remain the same.",
-          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
-          "spec_material_hash": "6d39f2ed448d4970d51995a4aa08881e8f333fd276d9d8a21000bdec373c010b"
+          "reason": "Records app-scoped credentials, token environment, release-PR gate, package whitelist and no-publication boundary.",
+          "reviewed_code_fingerprint": "941bc75f06871cd73f02a33c5e0c6592674cf664d2c2881ac2a7893374d40a48",
+          "spec_material_hash": "457f8eb04ca618031af2305bcf87a03ec0cc7b4c6f24192350702d3e0dd3bc43"
         }
       ],
       "state": "APPROVED",
       "stop_conditions": [],
-      "title": "Functional tones and harmonic icons",
+      "title": "Prepare v0.0.1 release automation",
       "todo_ids": [
-        "feat_01m5r5sjqedjj4fq"
+        "code_01m5ra7f5ntqdh86"
       ],
       "unknowns": [],
       "unresolved_contradictions": [],
-      "updated_at": "1792889646Z"
+      "updated_at": "1792892000Z"
     },
     "trajectory": {
       "active_boundaries": [
-        "No proprietary game content, secret or runtime machine state in Git; no unreviewed publication."
+        "Current claimed task and isolated work branch"
       ],
-      "artifact_hash": "sha256:59783d9e6cc0a57def900c025e29427b5333baf164f9f0d1ee83694e31fa5fb6",
-      "checks": [
-        {
-          "name": "decapod validate",
-          "status": "passed"
-        }
-      ],
-      "current_phase": "validation",
+      "artifact_hash": "sha256:c4665871c269f1c5e939227100981da1bd8af7c67b995d9f3061d6da73e53178",
+      "checks": [],
+      "current_phase": "intent",
       "custody": {
         "events": [
           {
             "event_id": "event:2",
-            "intent_id": "intent:tones-icons-validation",
+            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "kind": "created",
             "sequence": 2
           },
           {
             "event_id": "event:3",
-            "intent_id": "intent:tones-icons-validation",
+            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "kind": "refined",
             "sequence": 3
-          },
-          {
-            "detail": "trajectory:tones-icons-validation",
-            "event_id": "event:4",
-            "intent_id": "intent:tones-icons-validation",
-            "kind": "trajectory_step_recorded",
-            "sequence": 4
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 4,
+        "next_sequence": 3,
         "schema_version": "1.0.0",
-        "trajectories": {
-          "tones-icons-validation": {
-            "evidence_only": true,
-            "id": "tones-icons-validation",
-            "intent_id": "intent:tones-icons-validation",
-            "steps": [
-              {
-                "action": "validation",
-                "command": "decapod validate",
-                "custody_event_id": "event:4",
-                "observations": [
-                  ".decapod/governance.json",
-                  ".decapod/governance.json",
-                  "validation epoch ve_5f1911a6b3992eb4 completed with zero failures"
-                ],
-                "proof_refs": [
-                  "decapod validate"
-                ],
-                "scope": [
-                  "Core, CLI, mathematical/export tests, native readiness, CI and aligned specs"
-                ],
-                "sequence": 4,
-                "validation_findings": []
-              }
-            ]
-          }
-        }
+        "trajectories": {}
       },
-      "declared_commands": [
-        "decapod validate"
-      ],
-      "evidence": [
-        "validation epoch ve_5f1911a6b3992eb4 completed with zero failures"
-      ],
+      "declared_commands": [],
+      "destination": "pull request",
+      "evidence": [],
       "inspected_files": [],
-      "intent_id": "intent:tones-icons-validation",
-      "modified_files": [
-        ".decapod/governance.json"
-      ],
+      "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
+      "modified_files": [],
       "next_transitions": [
-        "publish"
+        "Refine plan and declare falsifiable checks"
       ],
       "repo_scope": [
-        "Core, CLI, mathematical/export tests, native readiness, CI and aligned specs"
+        "root"
       ],
-      "run_id": "tones-icons-validation",
+      "run_id": "branch_01M5RA8PAE4V4RVQTZC7SFKPQS",
       "schema_version": "1.1.0",
       "shortcut_risk_signals": [],
-      "task_id": "feat_01m5r5sjqedjj4fq",
+      "task_id": "code_01m5ra7f5ntqdh86",
       "tool_calls": [],
       "unresolved_assumptions": []
-    },
-    "validation": {
-      "ci_prediction": {
-        "confidence": "medium",
-        "recommendations": [
-          "Review the reported validation warnings before relying on the CI result.",
-          "Use `decapod validate -v --format json` to inspect the affected gate output."
-        ],
-        "result": "review"
-      },
-      "decapod_release": "0.121.1",
-      "drift_findings": [],
-      "elapsed_ms": 3544,
-      "epoch_ref": "ve_5f1911a6b3992eb4",
-      "fail_count": 0,
-      "failures": [],
-      "gate_timings": [
-        {
-          "elapsed_ms": 1267,
-          "name": "validate_project_specs_docs"
-        },
-        {
-          "elapsed_ms": 296,
-          "name": "validate_markdown_primitives_roundtrip_gate"
-        },
-        {
-          "elapsed_ms": 204,
-          "name": "validate_machine_contract"
-        },
-        {
-          "elapsed_ms": 130,
-          "name": "validate_git_workspace_context"
-        },
-        {
-          "elapsed_ms": 105,
-          "name": "validate_stale_workspaces"
-        },
-        {
-          "elapsed_ms": 97,
-          "name": "validate_obligations"
-        },
-        {
-          "elapsed_ms": 74,
-          "name": "validate_git_protected_branch"
-        },
-        {
-          "elapsed_ms": 62,
-          "name": "validate_git_push_pr_gate"
-        },
-        {
-          "elapsed_ms": 61,
-          "name": "validate_legacy_jsonl_retired"
-        },
-        {
-          "elapsed_ms": 48,
-          "name": "validate_gatekeeper_gate"
-        },
-        {
-          "elapsed_ms": 39,
-          "name": "validate_archive_integrity"
-        },
-        {
-          "elapsed_ms": 28,
-          "name": "validate_repomap_determinism"
-        },
-        {
-          "elapsed_ms": 27,
-          "name": "validate_federation_gates"
-        },
-        {
-          "elapsed_ms": 26,
-          "name": "validate_schema_determinism"
-        },
-        {
-          "elapsed_ms": 24,
-          "name": "validate_control_plane_contract"
-        },
-        {
-          "elapsed_ms": 23,
-          "name": "validate_generated_artifact_whitelist"
-        },
-        {
-          "elapsed_ms": 16,
-          "name": "validate_lineage_hard_gate"
-        },
-        {
-          "elapsed_ms": 14,
-          "name": "validate_knowledge_integrity"
-        },
-        {
-          "elapsed_ms": 13,
-          "name": "validate_watcher_audit"
-        },
-        {
-          "elapsed_ms": 13,
-          "name": "validate_lcm_immutability"
-        },
-        {
-          "elapsed_ms": 13,
-          "name": "validate_lcm_rebuild_gate"
-        },
-        {
-          "elapsed_ms": 12,
-          "name": "validate_state_commit_gate"
-        },
-        {
-          "elapsed_ms": 12,
-          "name": "validate_knowledge_promotions_if_present"
-        },
-        {
-          "elapsed_ms": 12,
-          "name": "validate_plan_governed_execution_gate"
-        },
-        {
-          "elapsed_ms": 12,
-          "name": "validate_database_schema_versions"
-        },
-        {
-          "elapsed_ms": 12,
-          "name": "validate_repo_map"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_policy_integrity"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_health_cache_integrity"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_override_authority"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_workunit_manifests_if_present"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_eval_gate_if_required"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_project_config_toml"
-        },
-        {
-          "elapsed_ms": 11,
-          "name": "validate_validation_receipt_if_present"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_trajectory_artifacts_if_present"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_health_purity"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_recursive_improvement_passes_if_present"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_entrypoint_invariants"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_project_scoped_state"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_spec_drift"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_context_capsule_policy_contract"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_no_legacy_namespaces"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_root_dockerfile_seed_detection"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_docs_templates_bucket"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_internalization_artifacts_if_present"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_canon_mutation"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_heartbeat_invocation_gate"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_risk_map_violations"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_watcher_purity"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_risk_map"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_embedded_self_contained"
-        },
-        {
-          "elapsed_ms": 10,
-          "name": "validate_tooling_gate"
-        },
-        {
-          "elapsed_ms": 9,
-          "name": "validate_research_claims_if_present"
-        },
-        {
-          "elapsed_ms": 9,
-          "name": "validate_coplayer_policy_tightening"
-        },
-        {
-          "elapsed_ms": 9,
-          "name": "validate_interface_contract_bootstrap"
-        },
-        {
-          "elapsed_ms": 9,
-          "name": "validate_context_capsules_if_present"
-        }
-      ],
-      "git_revision": "8d1f9c695ea1e75bfdcc228f1014779f368ea51a",
-      "kind": "validation_receipt",
-      "parallelism": 1,
-      "pass_count": 187,
-      "prediction_uses_warnings": true,
-      "receipt_hash": "sha256:a522c6c77f13ef56d4d74c2db89ce8026bdb819fdaf0379c2406d4d5179c02a5",
-      "repo_signal_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
-      "schema_version": "1.0.0",
-      "status": "ok",
-      "temporary_artifacts_cleaned": 0,
-      "trajectory_artifact_hash": "sha256:59783d9e6cc0a57def900c025e29427b5333baf164f9f0d1ee83694e31fa5fb6",
-      "trajectory_run_id": "tones-icons-validation",
-      "warn_count": 4,
-      "warnings": [
-        "Risk map missing (run `decapod riskmap init`)",
-        "Stale workspaces preserved for explicit review: <external-path> (unregistered_workspace: workspace ownership is unverified; --force does not authorize deleting unrelated directories. Inspect and preserve or remove this directory explicitly), <external-path> (current_workspace: workspace contains the current process; rerun prune from the host checkout after leaving this workspace so Git can release the branch)",
-        "Watcher audit trail missing (run `decapod govern watcher run`)",
-        "Workspace branch 'agent/unknown/feat_01m5r5sjqedjj4fq-procedural-toolkit' has unpushed commits or does not exist on origin. Branch pushes and iteration are allowed before preflight; hold PR creation until intent is converged, the branch is mergeable, and full `decapod validate` succeeds against the exact current candidate and accepted target."
-      ]
     }
   }
 }
