@@ -1,11 +1,20 @@
 [package]
 name = "jalapeno"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2024"
 rust-version = "1.85"
 description = "Procedural additive tones and harmonic icons in a small Rust toolkit"
 license = "MIT"
 repository = "https://github.com/DecapodLabs/jalapeno"
-publish = false
+homepage = "https://github.com/DecapodLabs/jalapeno"
+readme = "README.md"
+keywords = ["procedural-audio", "synthesis", "wave", "svg"]
+categories = ["multimedia::audio", "multimedia::images", "command-line-utilities"]
+include = ["/Cargo.toml", "/Cargo.lock", "/README.md", "/LICENSE", "/src/**", "/tests/**"]
 
 [dependencies]
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

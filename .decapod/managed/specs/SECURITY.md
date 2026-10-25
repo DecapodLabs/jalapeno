@@ -8,7 +8,12 @@ canvas, phase and sample-count bounds. SVG emits numeric paths and fixed markup;
 no user strings are embedded. WAV export streams bounded scratch to a writer.
 There is no network, plugin loading, external code evaluation, credentials or
 recipe parser. `src/lib.rs` forbids unsafe code; `Cargo.toml` has no dependencies
-and retains `publish = false`.
+and whitelists only source, tests, license and README in the crate archive. The
+release workflow is the only publishing path. It runs on `main`, serializes
+release jobs, uses the shared scoped release-manager GitHub App and the Actions
+`release` environment, and requires merging a release-plz PR before crate
+publication. The initial release uses a crates.io API token; OIDC Trusted
+Publishing is a later migration after `0.0.1` exists.
 
 The CLI uses create-new temporary files and non-replacing hard-link installation.
 It preserves an existing destination, including a symlink, and returns errors for
@@ -47,11 +52,12 @@ names and proprietary source must not be included. Examples must be original and
 independently usable. Do not copy reference credentials or print secret values.
 The initial broader unverified draft is excluded from this change.
 
-Future release credentials belong in the existing DecapodLabs GitHub App/release
-environment conventions where authorized and available. Use least privilege,
-review-gated publishing and one release writer. Do not publish from an unreviewed
-feature branch or replace a taken crate name silently. Verify packages exclude
-engine tooling, credentials and machine state. MIT licensing is in `LICENSE`.
+Release credentials belong in the existing DecapodLabs release-manager
+GitHub App/release environment conventions. The package whitelist omits CI
+workflows, Decapod governance state, scripts, adapters and runtime state. The
+release workflow is not exposed to pull-request code and does not publish from
+arbitrary `main` changes. Do not publish from an unreviewed feature branch or
+replace a taken crate name silently. MIT licensing is in `LICENSE`.
 
 
 
@@ -59,8 +65,8 @@ engine tooling, credentials and machine state. MIT licensing is in `LICENSE`.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494`
-- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
+- Repository signal fingerprint: `efd11ee45e79cb3222dc6f98a8597871b16cef3e293daa4feaa8f652576d0a5e`
+- Significant implementation surfaces: `.github/` (4 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 

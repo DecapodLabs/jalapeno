@@ -12,7 +12,8 @@ or at runtime, with no conventional asset files required by synthesis itself.
 Developers should eventually install the `jalapeno` CLI with `cargo install
 jalapeno`, depend on the crate with `cargo add jalapeno`, or embed the same Rust
 algorithms in Godot, Unity, Unreal or a custom application. These install commands
-are future goals, not currently available publication claims.
+are future goals beyond the initial `0.0.1` crate. Publication remains gated on
+the reviewed release PR, required credentials and successful release workflow.
 
 ## Scope
 
@@ -20,12 +21,16 @@ The latest user clarification asks for a tight functional solution: tones and
 icons. This first pass now implements a dependency-free Rust library and CLI:
 `audio::Tone` streams additive mono PCM16 WAV and `visual::Icon` produces sampled
 harmonic geometry and SVG. `src/main.rs` exposes `tone` and `icon`, plus help and
-version. Tests exercise the exported formats and underlying math.
+version. Tests exercise the exported formats and underlying math. The Cargo
+package and native CLI distribution are prepared for an initial `0.0.1` release;
+no publication or release artifact exists yet.
 
 The earlier direction to account for the whole prompt remains in force: broader
-music, visual, recipe, engine and release requirements below remain roadmap.
-`Cargo.toml` uses `0.1.0` and disables publishing. No service or runtime network
-is introduced. The original brief is not a claim of complete toolkit delivery.
+music, visual, recipe and engine requirements below remain roadmap. Release
+automation is configured around release-plz for version/changelog PRs and
+cargo-dist for standalone binaries. It publishes only after merging the intended
+release PR. No service or runtime network is introduced. The original brief is
+not a claim of complete toolkit delivery.
 
 ## Preserved future product requirements
 
@@ -48,8 +53,9 @@ is introduced. The original brief is not a claim of complete toolkit delivery.
 6. Thin Godot gdext/GDExtension and Unity C ABI/PInvoke integrations with practical
    procedural button/sound demos. Reuse the C ABI for Unreal C++ without Rust
    owning Unreal objects; document/scaffold Unreal first if needed for release scope.
-7. Publish a small core crate and standalone native binaries through a reviewed,
-   coherent release authority; preserve the release requirements in OPERATIONS.md.
+7. Publish a small core crate and standalone native binaries through release-plz
+   and cargo-dist, with reviewed release PRs, one tag/release authority, package
+   verification and credential separation; preserve requirements in OPERATIONS.md.
 8. Meaningful mathematical, resource, format, ABI, CLI and engine checks;
    measurements of throughput, memory, binary size and initialization. Require
    evidence for claims and use benchmarks before SIMD/GPU/async complexity.
@@ -82,10 +88,10 @@ coefficients and proprietary material must not be copied or published.
 
 ## Stages and non-goals
 
-This stage: working additive tones and harmonic icons, decoded-export checks and
-faithful full product context. Next: richer reusable synthesis, versioned recipes
-and composition, then the full menu demonstration, engine integrations and the
-review-gated v0.1 release. Full typography,
+This stage: working additive tones and harmonic icons, decoded-export checks,
+faithful full product context, and a release pipeline prepared for `0.0.1`.
+Next: richer reusable synthesis, versioned recipes and composition, then the full
+menu demonstration and engine integrations. Full typography,
 heavier acceleration and advanced audiovisual composition remain later milestones.
 Do not advertise any of these as implemented until source and proof support them.
 
@@ -106,16 +112,17 @@ These declarations select authoring and proof obligations; they do not attest im
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494`
-- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
+- Repository signal fingerprint: `efd11ee45e79cb3222dc6f98a8597871b16cef3e293daa4feaa8f652576d0a5e`
+- Significant implementation surfaces: `.github/` (4 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
 ## Constraints
 
 Keep the functional slice small and dependency-free. Preserve the original brief
-as roadmap, keep publishing disabled, and keep private reference material,
-credentials and runtime machine state out of Git. Standardized tool installation
+as roadmap, keep publication behind the release workflow and reviewed release PR,
+and keep private reference material, credentials and runtime machine state out
+of Git. Standardized tool installation
 paths declare the readiness environment without embedding a user's home directory.
 
 ## Acceptance Criteria

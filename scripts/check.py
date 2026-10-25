@@ -17,6 +17,24 @@ with tempfile.TemporaryDirectory(prefix='jalapeno-check-') as scratch:
     # Decapod executes against an immutable source snapshot. All artifacts belong
     # to fresh scratch, including Cargo output and exported examples.
     environment['CARGO_TARGET_DIR'] = str(scratch / 'target')
+    package = subprocess.run([cargo, 'package', '--list', '--locked'], env=environment,
+                             check=True, capture_output=True, text=True, timeout=60)
+    packaged_files = [path.replace('\\', '/') for path in package.stdout.splitlines()]
+    assert {'Cargo.toml', 'LICENSE', 'README.md'} <= set(packaged_files)
+    assert any(path.startswith('src/') for path in packaged_files)
+    assert any(path.startswith('tests/') for path in packaged_files)
+    expected_roots = {'Cargo.lock', 'Cargo.toml', 'Cargo.toml.orig', 'LICENSE', 'README.md',
+                      'src', 'tests'}
+    assert all(path == '.cargo_vcs_info.json' or path.split('/', 1)[0] in expected_roots
+               for path in packaged_files)
+    assert not any(path.startswith(('.decapod/', '.github/', 'scripts/')) for path in packaged_files)
+    subprocess.run([cargo, 'package', '--locked'], env=environment, check=True, timeout=120)
+    offline = environment.get('CARGO_NET_OFFLINE', '').lower() == 'true'
+    if not offline:
+        subprocess.run([cargo, 'publish', '--dry-run', '--locked'], env=environment,
+                       check=True, timeout=120)
+    else:
+        print('SKIP: cargo publish --dry-run requires registry access; package verification passed')
     for args in [('fmt', '--all', '--', '--check'),
                  ('clippy', '--workspace', '--all-targets', '--all-features', '--', '-D', 'warnings'),
                  ('test', '--workspace', '--all-features'), ('build', '--locked')]:
@@ -61,4 +79,4 @@ with tempfile.TemporaryDirectory(prefix='jalapeno-check-') as scratch:
         result = run(*args, code=2)
         assert not result.stdout and 'use --help' in result.stderr
     assert not list(scratch.glob('*.tmp')) and not (scratch / 'bad.wav').exists() and not (scratch / 'bad.svg').exists()
-print('PASS: fmt, clippy, tests, decoded WAV/SVG, deterministic output and CLI error/ownership checks')
+print('PASS: package allowlist/build, fmt, clippy, tests, decoded WAV/SVG, deterministic output and CLI error/ownership checks')

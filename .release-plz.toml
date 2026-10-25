@@ -1,0 +1,10 @@
+[workspace]
+changelog_update = true
+changelog_path = "CHANGELOG.md"
+git_tag_name = "v{{ version }}"
+git_release_enable = false
+release_always = false
+pr_labels = ["release"]
+
+[changelog]
+protect_breaking_commits = true
