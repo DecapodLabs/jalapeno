@@ -193,7 +193,7 @@ fn wav_is_streamed_in_bounded_writes_and_io_failures_propagate() {
     tone.write_wav(&mut out).unwrap();
     assert_eq!(out.bytes, 44 + 144000 * 2);
     assert!(out.largest <= 2048);
-    assert!(tone.write_wav(&mut [0u8; 12].as_mut_slice()).is_err());
+    assert!(tone.write_wav([0u8; 12].as_mut_slice()).is_err());
 }
 #[test]
 fn icons_are_bounded_closed_harmonic_contours_and_rotate() {

@@ -77,6 +77,14 @@
         "scripts/check.py",
         "tests/synthesis.rs"
       ]
+    },
+    {
+      "id": "clippy-short-writer",
+      "summary": "Fix the short-writer test call identified by actual native clippy; preserve all required checks",
+      "input_digest": "sha256:64678062f13ec195d9b6c0340a4a756cbc88530216dcae47711ba22f22e528a7",
+      "proof_refs": [
+        "tests/synthesis.rs"
+      ]
     }
   ],
   "intents": {
@@ -162,24 +170,24 @@
       "schema_version": "1.1.0",
       "spec_reviews": [
         {
-          "disposition": "updated",
+          "disposition": "unchanged_with_reason",
           "path": ".decapod/managed/specs/ARCHITECTURE.md",
-          "reason": "One dependency-free package now exposes audio and visual library modules consumed by the CLI; constant-memory tone export and bounded icon sampling match source. Native proof tooling is outside the application runtime.",
-          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "reason": "The clippy fix changes test call syntax only. Core/CLI layering, bounded exporters, lack of dependencies and native proof topology still match implementation.",
+          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
           "spec_material_hash": "cdfae2b04e7478cb6d4cb79fb52a9ce4559e1f1fcd5666df4073253004b54b98"
         },
         {
-          "disposition": "updated",
+          "disposition": "unchanged_with_reason",
           "path": ".decapod/managed/specs/INTERFACES.md",
-          "reason": "Compared implemented Tone/Icon public APIs, CLI parser and atomic file helper: WAV/SVG commands, defaults, bounds, ownership and exit codes are documented; recipes and engines remain planned.",
-          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "reason": "Only a needless borrow in the short-writer failure test was removed after actual clippy execution; public tone/icon APIs, options, defaults and ownership are unchanged.",
+          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
           "spec_material_hash": "52944514fb9cc590768027427f500b9359392d9dacaf5e84a21ae55437c70972"
         },
         {
-          "disposition": "updated",
+          "disposition": "unchanged_with_reason",
           "path": ".decapod/managed/specs/SECURITY.md",
-          "reason": "Checked finite/range/work bounds, fixed SVG markup, safe core, create-new temporary output and non-replacing hard-link install. Proof tools use standard external locations and no credentials; host Xcode runtime trust is explicit.",
-          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "reason": "Only redundant test borrowing changed; finite/work limits, fixed SVG, no unsafe code and output preservation semantics remain the same.",
+          "reviewed_code_fingerprint": "115d1a7b82ea9e9a94c4fd9a7bc8703df7db3546df05bbe8d15acb1ff0bd8494",
           "spec_material_hash": "6d39f2ed448d4970d51995a4aa08881e8f333fd276d9d8a21000bdec373c010b"
         }
       ],
@@ -191,7 +199,7 @@
       ],
       "unknowns": [],
       "unresolved_contradictions": [],
-      "updated_at": "1792889456Z"
+      "updated_at": "1792889646Z"
     },
     "trajectory": {
       "active_boundaries": [
