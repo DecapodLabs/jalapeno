@@ -1,6 +1,6 @@
 # Semantics
 
-## Current behavior
+## State Machines
 
 The only runtime semantics are argument recognition and process output in
 `src/main.rs`. No synthesis, seed handling, mathematical output or recipe
@@ -49,33 +49,20 @@ universal bit-identity claim. Record implementation compatibility and breaking
 schema/numerical changes explicitly. No numerical tolerance has been established
 by this first pass.
 
-<!-- decapod:capability-overlay:persistent-state:start -->
 
-Generated capability obligations: `persistent-state` is declared for this project. These are decisions and proof requirements, not claims of implemented behavior. Resolve each against project source and tests; record unsupported or non-applicable mechanisms explicitly.
-
-## Persistent State Semantics Overlay
-
-### Transaction Semantics
-- Atomicity boundaries and any non-atomic operations MUST be declared with source and test evidence
-- Document observed read-after-write behavior; do not infer consistency from a capability declaration
-- Eventual consistency windows MUST be documented
-
-### Migration Semantics
-- Migration compatibility, any breaking changes, and their recovery path MUST be explicit and tested
-- Migration rollback procedures MUST be documented
-- Data integrity checks post-migration
-
-### Recovery Semantics
-- Document supported recovery mechanisms and evidence; point-in-time recovery is not implied by persistent-state
-- Recovery objectives MUST be selected for the project and recorded as proof obligations
-- Recovery test cadence MUST be selected for the project and recorded as a proof obligation
-<!-- decapod:capability-overlay:persistent-state:end -->
 
 <!-- decapod:codebase-attestation:start -->
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `f4950ae07b01d9cf5e8b97ebc737ac50e7c344f798210f9c0118b8c15d5055cd`
+- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
+
+## Invariants
+
+Current behavior terminates after one response, performs no synthesis or external
+I/O beyond process text streams, and does not publish. Future mathematical,
+determinism and bounded-resource invariants are obligations described above,
+not established properties of an absent implementation.

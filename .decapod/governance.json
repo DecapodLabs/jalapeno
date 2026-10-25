@@ -26,6 +26,14 @@
       "proof_refs": [
         ".decapod/managed/specs/VALIDATION.md"
       ]
+    },
+    {
+      "id": "spec-alignment",
+      "summary": "Align required spec sections and capability metadata; complete initial CLI proof contract with local tool bindings kept out of Git",
+      "input_digest": "sha256:c383f4d618a1074ebd1d37d505a86cdcebe945ab047af95c78e5ae5241e6ff89",
+      "proof_refs": [
+        "scripts/check.py"
+      ]
     }
   ],
   "intents": {

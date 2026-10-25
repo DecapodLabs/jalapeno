@@ -1,6 +1,6 @@
 # Validation
 
-## Initial scaffold acceptance
+## Proof Surfaces
 
 For this narrowed first pass verify:
 
@@ -63,51 +63,33 @@ measured need. No such measurements exist for this scaffold.
 The prompt is preserved as an actionable engineering brief, not evidence that
 those future capabilities are already delivered.
 
-<!-- decapod:capability-overlay:persistent-state:start -->
 
-Generated capability obligations: `persistent-state` is declared for this project. These are decisions and proof requirements, not claims of implemented behavior. Resolve each against project source and tests; record unsupported or non-applicable mechanisms explicitly.
 
-## Persistent State Validation Overlay
 
-### Migration Proof Command
-- Configure `repo.migration_validation.command` and its arguments as the executable migration proof; file presence is not proof
-- The configured command MUST define its working directory, timeout, expected exit code, and evidence output
-
-### Migration Tests
-- All migrations MUST have integration tests
-- Rollback procedures MUST be tested
-- Data integrity checks post-migration
-
-### Persistence Integration Tests
-- Repository abstraction tested against real database
-- Transaction boundary tests
-- Concurrency conflict tests
-- Data integrity validation after recovery
-<!-- decapod:capability-overlay:persistent-state:end -->
-
-<!-- decapod:capability-overlay:public-api:start -->
-
-Generated capability obligations: `public-api` is declared for this project. These are decisions and proof requirements, not claims of implemented behavior. Resolve each against project source and tests; record unsupported or non-applicable mechanisms explicitly.
-
-## Public API Validation Overlay
-
-### Contract Tests
-- All public endpoints MUST have contract tests
-- Request/response schema validation on every request
-- Compatibility regression tests for each version
-
-### Security Tests
-- Authentication bypass tests
-- Malformed input handling tests
-- Rate limit enforcement tests
-- Token expiry/revocation tests
-<!-- decapod:capability-overlay:public-api:end -->
 
 <!-- decapod:codebase-attestation:start -->
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `f4950ae07b01d9cf5e8b97ebc737ac50e7c344f798210f9c0118b8c15d5055cd`
+- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
+
+## Promotion Gates
+
+The initial branch needs actual local checks and Decapod exact-candidate readiness
+before a PR. PR review is the acceptance boundary. Publication remains disabled;
+local readiness cannot stand in for future hosted matrix or release proof.
+
+## Evidence Artifacts
+
+`scripts/check.py` executes formatting, lint, compilation and CLI smoke checks.
+Decapod stores bound execution receipts locally; the governance document records
+scope and evidence references. Keep logs and machine-local tool paths out of Git.
+
+## Regression Guardrails
+
+Reject changes that claim planned synthesis/adapters/releases are already working,
+lose a major requirement from this brief, publish prematurely, or add unrelated
+runtime dependencies. Expand tests when meaningful synthesis behavior is added.

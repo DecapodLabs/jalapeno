@@ -1,4 +1,4 @@
-# Operations and release direction
+# Operations
 
 ## Current development
 
@@ -54,30 +54,30 @@ mismatch and partial releases. Recovery must reuse the same reviewed release
 identity rather than creating another publisher. External blockers do not justify
 claiming a publication occurred.
 
-<!-- decapod:capability-overlay:persistent-state:start -->
 
-Generated capability obligations: `persistent-state` is declared for this project. These are decisions and proof requirements, not claims of implemented behavior. Resolve each against project source and tests; record unsupported or non-applicable mechanisms explicitly.
-
-## Persistent State Operations Overlay
-
-### Backup & Recovery
-- Backup scope, schedule, retention, and restore evidence MUST be selected for the project
-- Recovery point objectives MUST be explicit project decisions, not assumed values
-- Recovery time objectives MUST be explicit project decisions, not assumed values
-- Restore verification cadence MUST be recorded with the operational proof plan
-
-### Migration Operations
-- All schema changes via migration files
-- Migration rollback procedures documented
-- Migration downtime and availability effects MUST be declared; zero downtime requires project-specific proof
-- Migration health checks and rollback triggers
-<!-- decapod:capability-overlay:persistent-state:end -->
 
 <!-- decapod:codebase-attestation:start -->
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `f4950ae07b01d9cf5e8b97ebc737ac50e7c344f798210f9c0118b8c15d5055cd`
+- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
+
+## Service Level Objectives
+
+No service uptime objective applies to a local CLI scaffold. Future synthesis
+throughput, memory, startup and real-time claims require scoped measurements.
+
+## Monitoring
+
+Current observability is stdout/stderr and the exit code. No telemetry, daemon or
+monitoring backend is present or required for core synthesis.
+
+## Incident Response
+
+For incorrect CLI behavior, preserve the failing command and diagnostic, fix the
+entrypoint and rerun checks. For a future release failure, preserve the exact
+reviewed release identity and validation evidence; follow the recovery constraints
+above without exposing credentials or introducing another publisher.

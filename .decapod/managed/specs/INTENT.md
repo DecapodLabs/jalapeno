@@ -1,6 +1,6 @@
 # Intent
 
-## Product mission
+## Product Outcome
 
 Jalapeño is intended as a lightweight, standalone, open-source Rust tool and
 library for generating music, sound effects, visual assets, UI elements and
@@ -14,7 +14,7 @@ jalapeno`, depend on the crate with `cargo add jalapeno`, or embed the same Rust
 algorithms in Godot, Unity, Unreal or a custom application. These install commands
 are future goals, not currently available publication claims.
 
-## Current acceptance scope
+## Scope
 
 The user explicitly narrowed the first pass after the original broad prompt:
 focus on aligned Decapod specs and a simple initial `main.rs`, while accounting
@@ -102,7 +102,21 @@ These declarations select authoring and proof obligations; they do not attest im
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `f4950ae07b01d9cf5e8b97ebc737ac50e7c344f798210f9c0118b8c15d5055cd`
+- Repository signal fingerprint: `9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6`
 - Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
+
+## Constraints
+
+Preserve the full original brief without implementing its larger scope in this
+first pass. Keep the CLI dependency-free, publish disabled, and private reference
+material and machine state out of source control. Future core isolation, numerical,
+engine ownership and release constraints remain requirements as recorded above.
+
+## Acceptance Criteria
+
+The entrypoint must build, lint and pass help/version/error smoke checks. All
+specs must describe current behavior faithfully and account for the original
+brief as future work. Complete Decapod validation before creating the PR;
+no synthesis or publication completion claim is allowed at this stage.
