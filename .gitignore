@@ -1,0 +1,17 @@
+.decapod/data
+.decapod/data/*
+.decapod/.stfolder
+.decapod/workspaces
+.decapod/managed/*
+!.decapod/data/
+!.decapod/managed/
+!.decapod/managed/Dockerfile.decapod
+!.decapod/managed/specs/
+!.decapod/managed/specs/*.md
+!.decapod/managed/specs/.manifest.json
+/target/
+*.tmp
+*.log
+.DS_Store
+.env
+
