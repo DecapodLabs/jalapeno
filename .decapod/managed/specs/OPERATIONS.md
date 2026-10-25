@@ -12,7 +12,10 @@ Use a claimed Decapod task, an isolated workspace, aligned living specs,
 falsifiable claims and actual validation evidence. GitHub PR review remains the
 acceptance boundary. Record a concrete validation/permission blocker if a required
 gate is unavailable; do not invent success or bypass it. Keep machine-local proof
-tool bindings and execution artifacts outside published source.
+tool bindings and execution artifacts outside published source. The tracked
+`.decapod/config.example.toml` carries portable product intent. Copy it to the
+ignored `.decapod/config.toml` and review installed tools for the local readiness
+profile; machine-specific tool paths are intentionally not committed.
 
 ## Required future release process
 

@@ -10,19 +10,10 @@
 !.decapod/managed/specs/*.md
 !.decapod/managed/specs/.manifest.json
 /target/
-/generated/
 *.tmp
 *.log
 .DS_Store
-**/.godot/
-**/bin/
-**/obj/
-/bindings/unity/Library/
-/bindings/unity/Temp/
-/bindings/unity/Logs/
-/bindings/unity/UserSettings/
 .env
-/bindings/godot/demo/recipes/
 
-# Machine-local Decapod tool bindings; portable project context is in the example.
+# Absolute installed-tool bindings are machine-local.
 .decapod/config.toml
