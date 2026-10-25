@@ -19,7 +19,7 @@ with tempfile.TemporaryDirectory(prefix='jalapeno-check-') as scratch:
     environment['CARGO_TARGET_DIR'] = str(scratch / 'target')
     package = subprocess.run([cargo, 'package', '--list', '--locked'], env=environment,
                              check=True, capture_output=True, text=True, timeout=60)
-    packaged_files = package.stdout.splitlines()
+    packaged_files = [path.replace('\\', '/') for path in package.stdout.splitlines()]
     assert {'Cargo.toml', 'LICENSE', 'README.md'} <= set(packaged_files)
     assert any(path.startswith('src/') for path in packaged_files)
     assert any(path.startswith('tests/') for path in packaged_files)

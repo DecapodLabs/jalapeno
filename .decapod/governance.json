@@ -85,6 +85,15 @@
         ".decapod/governance.json",
         "scripts/check.py"
       ]
+    },
+    {
+      "id": "windows-package-paths",
+      "summary": "Normalize Cargo package-list separators cross-platform and update Decapod source inventory digest for the reviewed helper change.",
+      "input_digest": "sha256:0f2a2ad95869de4dd103c9c6cc5fb8de025c9722766a062cbe032835c5b9d07a",
+      "proof_refs": [
+        ".decapod/config.toml",
+        "scripts/check.py"
+      ]
     }
   ],
   "intents": {
@@ -209,7 +218,7 @@
       "active_boundaries": [
         "current v0.0.1 release automation candidate"
       ],
-      "artifact_hash": "sha256:6cd1cc27f878c9eeb6f8c773bedcfa65fbad4d273a026d2ce1e3540d9ecb2007",
+      "artifact_hash": "sha256:acfb83b01545af47a8f8012265a456d0c63bd2ddb8d7778c5e3004cbbd128aa6",
       "checks": [
         {
           "name": "decapod validate",
@@ -229,6 +238,10 @@
         },
         {
           "name": "publish-dry-run",
+          "status": "passed"
+        },
+        {
+          "name": "windows-package-path-normalization",
           "status": "passed"
         },
         {
@@ -264,10 +277,17 @@
             "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
             "kind": "trajectory_step_recorded",
             "sequence": 5
+          },
+          {
+            "detail": "trajectory:branch_release_v0001_01m5rb",
+            "event_id": "event:6",
+            "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
+            "kind": "trajectory_step_recorded",
+            "sequence": 6
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 5,
+        "next_sequence": 6,
         "schema_version": "1.0.0",
         "trajectories": {
           "branch_release_v0001_01m5rb": {
@@ -312,6 +332,24 @@
                 ],
                 "sequence": 5,
                 "validation_findings": []
+              },
+              {
+                "action": "validation",
+                "command": "python3 scripts/check.py",
+                "custody_event_id": "event:6",
+                "observations": [
+                  "scripts/check.py",
+                  ".decapod/config.toml",
+                  "CI failure reproduced from hosted Windows logs: Cargo package-list paths use Windows separators; checker now normalizes paths before allowlist assertions."
+                ],
+                "proof_refs": [
+                  "windows-package-path-normalization"
+                ],
+                "scope": [
+                  "root"
+                ],
+                "sequence": 6,
+                "validation_findings": []
               }
             ]
           }
@@ -326,13 +364,16 @@
       ],
       "destination": "pull request",
       "evidence": [
+        "CI failure reproduced from hosted Windows logs: Cargo package-list paths use Windows separators; checker now normalizes paths before allowlist assertions.",
         "Reconciled profile declares all four discovered GitHub workflow sources; exact-source project-check passed on current commit.",
         "validation epoch ve_b0438e139f5c094a completed with zero failures"
       ],
       "inspected_files": [],
       "intent_id": "intent:change_01M5RA8P7N9M174WN0K5KAK207",
       "modified_files": [
-        ".decapod/governance.json"
+        ".decapod/config.toml",
+        ".decapod/governance.json",
+        "scripts/check.py"
       ],
       "next_transitions": [
         "publish"
