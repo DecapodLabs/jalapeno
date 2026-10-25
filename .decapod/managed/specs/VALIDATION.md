@@ -2,21 +2,26 @@
 
 ## Proof Surfaces
 
-For this narrowed first pass verify:
+The required current check is `python3 scripts/check.py`:
 
 1. `cargo fmt --all -- --check`.
-2. `cargo clippy --all-targets -- -D warnings`.
-3. `cargo test` (currently no algorithm tests; compilation is not synthesis proof).
-4. CLI smoke: no arguments/help show the same purpose and scope; version matches
-   Cargo metadata; unsupported/multiple arguments return usage exit 2 on stderr.
-5. Read all eight specs and README against `Cargo.toml`/`src/main.rs`: current
-   claims must match actual code and every original requirement must be preserved
-   as planned work, without template placeholders or false feature claims.
-6. Decapod exact-candidate validation before PR creation, with evidence and any
-   concrete limitations recorded separately from hosted CI/publication proof.
+2. `cargo clippy --workspace --all-targets --all-features -- -D warnings`.
+3. `cargo test --workspace --all-features` and a locked binary build.
+4. Mathematical/export tests for frequency, partials, headroom, zero endpoints,
+   continuity, silence, Nyquist omission, determinism, resource/numeric rejection,
+   bounded WAV writes and writer failures; distinct, bounded, closed rotating icons.
+5. Native CLI smoke: decode generated WAV using Python's wave/struct and SVG using
+   ElementTree, check output content, repeated-input bytes, input errors, duplicate
+   options, no unintended files and preservation of an existing destination.
+6. Read all specs/README against the actual public core and CLI; future features
+   remain labeled as planned. Refresh attestations and source-bound spec reviews.
+7. Full exact-candidate Decapod readiness before PR creation.
 
-No DSP, image, recipe, engine or performance checks can pass for unimplemented
-features. There is no claim that a unit-test count of zero verifies future behavior.
+The check writes Cargo output and exports only to fresh temporary scratch, suitable
+for the controller's immutable source snapshot. GitHub CI runs the same command on
+Linux, macOS and Windows. Local execution proves one native platform; matrix
+success must come from actual hosted runs. Recipe, engine, PNG, performance and
+release checks cannot pass for features that remain unimplemented.
 
 ## Required future CI and acceptance evidence
 
@@ -71,39 +76,37 @@ those future capabilities are already delivered.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
 ## Promotion Gates
 
-The initial branch needs actual local checks and Decapod exact-candidate readiness
-before a PR. PR review is the acceptance boundary. Publication remains disabled;
-local readiness cannot stand in for future hosted matrix or release proof.
+The branch requires actual core/export checks and full Decapod exact-candidate
+readiness before a PR. The tracked `repo.pr-readiness.v1` contract binds reviewed
+workflow/source and command digests, standardized installed tool paths and the
+Rust/Python/linker/SDK closure. `scripts/prepare-proof.py` stages existing trusted
+Rust tools outside the checkout; it performs no build or validation. The current
+native Decapod profile supports macOS ARM64 with standard Xcode and Rust 1.99.0.
+It makes no hosted matrix or release assurance claim.
+
+GitHub PR review remains the acceptance boundary. Publication is disabled.
+Neither project-check nor directly running the test script substitutes for full
+Decapod readiness. A failed gate must be repaired and rerun on the exact candidate.
 
 ## Evidence Artifacts
 
-`scripts/check.py` executes formatting, lint, compilation and CLI smoke checks.
-Decapod stores bound execution receipts locally; the governance document records
-scope and evidence references. Keep logs and machine-local tool paths out of Git.
+`tests/synthesis.rs` covers public mathematical/export behavior.
+`scripts/check.py` covers the actual native CLI and decoded artifacts.
+Decapod stores bound execution receipts locally; the governance record carries
+scope/evidence references. Hosted check runs prove the CI matrix separately.
+Logs, binaries, credentials and machine runtime state are excluded from Git.
 
 ## Regression Guardrails
 
-Reject changes that claim planned synthesis/adapters/releases are already working,
-lose a major requirement from this brief, publish prematurely, or add unrelated
-runtime dependencies. Expand tests when meaningful synthesis behavior is added.
-
-## First-pass verification evidence
-
-On 2026-10-24, `python3 scripts/check.py` passed formatting, clippy with denied
-warnings, `cargo test`, `cargo build`, and all help/version/usage smoke cases.
-`cargo test` currently runs zero unit tests; the separate CLI smoke cases exercise
-the implemented behavior. Decapod project/spec prerequisite checks passed after
-required headings and source-bound spec reviews were aligned.
-
-Full PR readiness has not passed: the repository still needs a reviewed execution
-profile. The controller's repository-local profile requires absolute installed-tool
-bindings in the tracked canonical config. Machine-specific bindings were kept out
-of Git; the portable check command is recorded instead. Do not treat project-check
-or the direct CLI checks as authorization to create a PR or publish a release.
+Keep the functional tone/icon slice dependency-free, preserve outputs on failure,
+and reject unbounded/nonfinite input. Protect meaningful math and decoded formats,
+not just file existence. Do not lose original requirements, advertise roadmap
+features as delivered, or enable publication prematurely. Add appropriate tests
+with later synthesis, recipe, adapter or release behavior.

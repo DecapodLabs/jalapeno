@@ -2,15 +2,18 @@
 
 ## Current Facts
 
-`Cargo.toml` defines one Rust 2024 binary package named `jalapeno`, version `0.1.0`,
-with no dependencies and publishing disabled. `src/main.rs::main` reads command
-arguments, prints help or the package version, and returns success or usage exit
-code 2. There is no library, synthesis engine, asset schema, export pipeline or
-engine adapter yet. No filesystem persistence or service process is needed.
+`Cargo.toml` defines one Rust 2024 package named `jalapeno`, version `0.1.0`,
+with no dependencies and publishing disabled. `src/lib.rs` exposes `audio` and
+`visual`. `audio::Tone` validates parameters and streams additive mono PCM16 WAV.
+`visual::Icon` validates parameters, samples harmonic contours and exports SVG.
+`src/main.rs` parses options and delegates synthesis to this public library.
+Its output helper writes a temporary sibling and installs it without replacement.
+There are no engines, recipe parser, server or persistent application state.
 
 ```text
-shell arguments -> src/main.rs -> stdout help/version or stderr usage error
-                              -> exit 0 or 2
+CLI arguments -> src/main.rs -> audio::Tone -> streamed WAV
+                            -> visual::Icon -> geometry / SVG
+Rust consumers -------------> same public synthesis modules
 ```
 
 ## Direction
@@ -48,54 +51,54 @@ small feature-gated serialization/export tooling. No adapter reimplements algori
 
 ## Concurrency and Runtime Model
 
-Separate recipe validation/preparation from rendering. Bounded block processing
-should enable long compositions without buffering the entire output. Applications
-must also consume geometry and pixel/audio buffers directly. Define ownership,
-limits and failure behavior before FFI. Only claim real-time safety for measured,
-allocation-free/nonblocking paths; preparation and convenience exports may allocate.
-Use benchmarks before choosing SIMD, GPU acceleration or asynchronous runtimes.
+Rendering is synchronous. Tone export uses constant scratch storage (2048 bytes)
+and no per-sample allocation; preparation/CLI and icon sampling allocate. File
+exports block. No hard real-time guarantee is made. Icons have bounded sample
+counts and canvas dimensions. No threads, async runtime or background process
+are introduced.
 
-No numerical representation, ABI layout or render algorithm is frozen in this
-first pass. SEMANTICS.md records requirements for those later decisions.
+## Topology
 
+The diagram above describes current execution in one local process. The planned
+core/adapter topology in Direction is future work, with no runtime network links.
 
+## Execution Path
+
+`main` matches help/version or parses `tone`/`icon` options, validates input, then
+calls the corresponding core exporter. Numeric/usage errors exit 2; output I/O
+errors exit 3. The temporary file is cleaned up on an ordinary export failure.
+
+## Deployment Topology
+
+Current use is `cargo run`/`cargo build` or a Rust dependency by path. CI runs the
+same check script on Linux/macOS/Windows. Native Decapod readiness currently
+uses a reviewed macOS ARM64 tool layout; it does not prove the hosted matrix ran.
+There is no release workflow or engine plugin yet.
+
+## Data and Contracts
+
+`Tone`, `Icon`, `Shape` and `Point` are small public Rust descriptions of synthesis.
+They contain parameters, not recorded assets. There is no versioned JSON schema
+or stable C ABI. Current argument, output and numeric contracts are in INTERFACES
+and SEMANTICS. Existing output paths are never replaced by the CLI.
+
+## Delivery Plan
+
+Complete tones/icons and exact-candidate proof first. Follow with reusable richer
+synthesis, recipes and composition, the full menu demo, then engines and releases.
+
+## Risks and Mitigations
+
+Potential aliasing and discontinuities are addressed by omitting Nyquist partials
+and applying short fades, without claiming perfect bandlimiting of envelopes.
+Bounds limit duration/harmonics/geometry. Decoded-export and mathematical tests
+protect real behavior. Specs distinguish the original roadmap from current code.
 
 <!-- decapod:codebase-attestation:start -->
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
-
-## Topology
-
-The two text diagrams above show the actual one-process CLI and the intended
-future core/adapter topology. There are no runtime services or network links.
-
-## Execution Path
-
-`main` collects OS arguments, matches a supported option and prints a fixed
-message; unsupported argument lists return `ExitCode::from(2)`.
-
-## Deployment Topology
-
-Current deployment is local `cargo run`/`cargo build`. There is no hosted
-application or engine plugin. Native release archives are a future requirement.
-
-## Data and Contracts
-
-No persisted application data or recipe schema exists yet. The current argument
-contract and planned Rust/recipe/ABI surfaces are in INTERFACES.md.
-
-## Delivery Plan
-
-First preserve the product brief and establish the entrypoint. Follow with a
-validated small core, recipes and export examples, then engine and release work.
-
-## Risks and Mitigations
-
-The main current risk is confusing the complete brief with delivered features.
-README and every spec mark the boundary. Future numerical, resource, ownership
-and release risks have explicit requirements in the corresponding specs.

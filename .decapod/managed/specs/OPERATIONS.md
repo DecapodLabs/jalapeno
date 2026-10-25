@@ -2,21 +2,31 @@
 
 ## Current development
 
-Run `cargo run -- --help` or `cargo run -- --version` from the checkout. The binary
-requires no services or runtime setup. Development uses Rust/Cargo; current checks
-are in VALIDATION.md. `Cargo.toml` starts at `0.1.0` and explicitly disables
-publishing. There is no release workflow, published crate, GitHub binary release,
-engine installation or deployment in this first pass.
+Run the tone and icon commands documented in README and INTERFACES. Rust callers
+use `audio::Tone` and `visual::Icon`. The program needs no runtime services or
+external codecs. `Cargo.toml` stays at `0.1.0` with publishing disabled; no crate,
+release archive or engine integration is claimed.
 
-Use a claimed Decapod task, an isolated workspace, aligned living specs,
-falsifiable claims and actual validation evidence. GitHub PR review remains the
-acceptance boundary. Record a concrete validation/permission blocker if a required
-gate is unavailable; do not invent success or bypass it. Keep machine-local proof
-tool bindings and execution artifacts outside published source. The tracked
-`.decapod/config.toml` carries portable product intent and the check command.
-Full PR readiness still requires a reviewed execution profile. The installed
-controller's local profile requires tracked absolute tool bindings; this first
-pass does not commit machine-specific paths or claim that gate has passed.
+Run `python3 scripts/check.py` for fmt, clippy, unit/property checks and decoded
+WAV/SVG CLI smoke checks. GitHub CI uses this same script on Linux/macOS/Windows.
+Actual hosted execution results must be observed independently; authored CI is
+not execution proof.
+
+For native Decapod readiness on macOS ARM64, use standard Xcode and installed
+Rust 1.99.0 (`b940084d7`), then run `python3 scripts/prepare-proof.py`. It copies
+installed Rust bin/lib files to `/private/tmp/jalapeno-proof-v1/rust` and verifies
+their bytes. No app build, dependency download or validation occurs in preparation.
+The tracked execution contract declares standard tool paths and the measured
+compiler/runtime/linker/SDK/Python closure. No user home, credentials, logs or
+runtime state is committed. The prefix is disposable; rerun preparation after
+cleanup, and review any toolchain change explicitly.
+
+The check uses fresh temporary Cargo/export storage, so Decapod can execute it
+against an immutable source snapshot. Checkpoint and commit the candidate, then
+run `decapod validate`. A reviewed command/source digest binds the selected local
+profile. Passing local readiness proves this native scope, not the hosted CI
+matrix or releases. Other platforms can use the check script; native Decapod
+profiles there remain follow-on work. GitHub PR review remains acceptance.
 
 ## Required future release process
 
@@ -64,8 +74,8 @@ claiming a publication occurred.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
@@ -81,7 +91,9 @@ monitoring backend is present or required for core synthesis.
 
 ## Incident Response
 
-For incorrect CLI behavior, preserve the failing command and diagnostic, fix the
-entrypoint and rerun checks. For a future release failure, preserve the exact
+For incorrect CLI/export behavior, preserve the failing command and diagnostic,
+fix the core or entrypoint and rerun checks. For staged-tool mismatch, inspect the
+owned temporary installation and re-stage trusted installed tools; do not alter
+proof pins merely to suppress an unexplained failure. For a future release failure, preserve the exact
 reviewed release identity and validation evidence; follow the recovery constraints
 above without exposing credentials or introducing another publisher.

@@ -16,13 +16,16 @@ are future goals, not currently available publication claims.
 
 ## Scope
 
-The user explicitly narrowed the first pass after the original broad prompt:
-focus on aligned Decapod specs and a simple initial `main.rs`, while accounting
-for the original context. This PR therefore supplies a dependency-free Rust binary
-with help/version output, MIT licensing, and source-grounded product specs.
-`src/main.rs` does not synthesize or export assets. `Cargo.toml` uses `0.1.0` and
-disables publishing. No daemon, server, database, telemetry or network dependency
-is introduced into the application.
+The latest user clarification asks for a tight functional solution: tones and
+icons. This first pass now implements a dependency-free Rust library and CLI:
+`audio::Tone` streams additive mono PCM16 WAV and `visual::Icon` produces sampled
+harmonic geometry and SVG. `src/main.rs` exposes `tone` and `icon`, plus help and
+version. Tests exercise the exported formats and underlying math.
+
+The earlier direction to account for the whole prompt remains in force: broader
+music, visual, recipe, engine and release requirements below remain roadmap.
+`Cargo.toml` uses `0.1.0` and disables publishing. No service or runtime network
+is introduced. The original brief is not a claim of complete toolkit delivery.
 
 ## Preserved future product requirements
 
@@ -79,9 +82,10 @@ coefficients and proprietary material must not be copied or published.
 
 ## Stages and non-goals
 
-This stage: minimal entrypoint and faithful product context. Next: implement and
-validate a small reusable core and recipes, then the CLI/export demonstration,
-then engine integrations and the review-gated v0.1 release. Full typography,
+This stage: working additive tones and harmonic icons, decoded-export checks and
+faithful full product context. Next: richer reusable synthesis, versioned recipes
+and composition, then the full menu demonstration, engine integrations and the
+review-gated v0.1 release. Full typography,
 heavier acceleration and advanced audiovisual composition remain later milestones.
 Do not advertise any of these as implemented until source and proof support them.
 
@@ -102,21 +106,22 @@ These declarations select authoring and proof obligations; they do not attest im
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
 ## Constraints
 
-Preserve the full original brief without implementing its larger scope in this
-first pass. Keep the CLI dependency-free, publish disabled, and private reference
-material and machine state out of source control. Future core isolation, numerical,
-engine ownership and release constraints remain requirements as recorded above.
+Keep the functional slice small and dependency-free. Preserve the original brief
+as roadmap, keep publishing disabled, and keep private reference material,
+credentials and runtime machine state out of Git. Standardized tool installation
+paths declare the readiness environment without embedding a user's home directory.
 
 ## Acceptance Criteria
 
-The entrypoint must build, lint and pass help/version/error smoke checks. All
-specs must describe current behavior faithfully and account for the original
-brief as future work. Complete Decapod validation before creating the PR;
-no synthesis or publication completion claim is allowed at this stage.
+The public core and CLI must generate audible, bounded WAV tones and distinct,
+bounded harmonic SVG icons. Validate exports by decoding them, test mathematical
+properties and invalid input, preserve existing output, and document actual limits.
+Keep all eight specs aligned and run full exact-candidate Decapod validation before
+opening the implementation PR. No engine or publication completion claim is allowed.

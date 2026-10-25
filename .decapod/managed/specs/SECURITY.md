@@ -2,11 +2,27 @@
 
 ## Threat Model
 
-`src/main.rs` prints fixed help/version/usage text and does not read recipes,
-write files, open sockets, load plugins or invoke executables. `Cargo.toml` has no
-dependencies and `publish = false`. Decapod is development governance, not an
-application runtime dependency. Keep credentials, sessions, authentication state,
-logs, generated output and machine state outside Git.
+`src/main.rs` accepts local options and writes caller-selected output paths.
+The core validates finite numbers and explicit duration, rate, harmonic, work,
+canvas, phase and sample-count bounds. SVG emits numeric paths and fixed markup;
+no user strings are embedded. WAV export streams bounded scratch to a writer.
+There is no network, plugin loading, external code evaluation, credentials or
+recipe parser. `src/lib.rs` forbids unsafe code; `Cargo.toml` has no dependencies
+and retains `publish = false`.
+
+The CLI uses create-new temporary files and non-replacing hard-link installation.
+It preserves an existing destination, including a symlink, and returns errors for
+unsupported filesystems. An abrupt process kill can leave a temporary sibling;
+the next invocation does not overwrite it. The caller remains responsible for
+choosing an appropriate local output directory.
+
+Decapod proof tooling is development-only. The preparation script stages existing
+installed Rust files at a fixed external prefix and verifies their bytes. Tracked
+configuration names standardized tool installations, not a user's home or mutable
+runtime state. It downloads no executables and reads no credentials. Decapod
+measures declared tools and runs the check in fresh scratch against an immutable
+snapshot. This initial profile trusts macOS/Xcode's host runtime, not a sandbox
+security claim; it supports only the documented native readiness environment.
 
 ## Future input and resource boundaries
 
@@ -43,8 +59,8 @@ engine tooling, credentials and machine state. MIT licensing is in `LICENSE`.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
@@ -55,7 +71,7 @@ release tokens are development/operations state and must never enter Git.
 
 ## Authorization
 
-The initial CLI cannot modify assets or publish. Future publication requires the
+The CLI creates new tone/icon exports and cannot overwrite existing files or publish. Future publication requires the
 reviewed release process and authorized credentials. Prompt scope does not permit
 publishing an unreviewed implementation branch.
 

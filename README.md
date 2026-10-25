@@ -1,45 +1,71 @@
 # Jalapeño
 
-Jalapeño is intended to become a small, engine-independent Rust toolkit for
-procedural audio, geometry, UI and animation through mathematical wave synthesis.
-
-This first pass contains a dependency-free CLI entrypoint and Decapod
-specifications preserving the complete product brief. Synthesis, export formats,
-recipes, engine adapters and release automation are **planned, not implemented**.
-The latest task deliberately limits code to this initial scaffold.
+A small Rust toolkit for procedural **tones and icons**. Generate additive audio
+as PCM WAV and harmonic geometry as SVG, using the same dependency-free library
+as the CLI. No recordings, bitmap assets, engines, network or external encoder
+are required.
 
 ```sh
+cargo run -- tone --hz 440 --seconds 0.4 --partials 1,0.3,0.1 -o tone.wav
+cargo run -- icon --shape seed --size 128 -o seed.svg
+cargo run -- icon --shape spark --phase 0.4 -o spark.svg
 cargo run -- --help
-cargo run -- --version
 ```
 
-The executable is named `jalapeno`. No arguments show help; unsupported arguments
-exit with code 2. This package starts at `0.1.0` and has `publish = false` until a
-reviewed implementation and release process are ready. No crate or binary release
-has been published. There are no runtime dependencies or background services.
+Tone options are frequency, duration, sample rate, gain and signed harmonic
+amplitudes. Output is mono PCM16 WAV. High partials at or above Nyquist are omitted;
+normalization preserves headroom and short raised-cosine fades soften the ends.
+WAV rendering uses a fixed 2 KB scratch buffer, independent of duration.
 
-Start with the [spec index](.decapod/managed/specs/README.md).
-[Intent](.decapod/managed/specs/INTENT.md) records the mission and delivery stages;
-[architecture](.decapod/managed/specs/ARCHITECTURE.md) defines the planned core and
-adapter boundaries; [interfaces](.decapod/managed/specs/INTERFACES.md) describes the
-future public contracts. The remaining specs cover numerical semantics, security,
-operations, and validation. Each distinguishes current code from future work.
+Icon shapes are `circle`, `seed` and `spark`. Each is an original harmonic contour;
+size sets the canvas and phase rotates it in radians. SVG uses numeric geometry
+with fixed colors and no external resources. Applications can consume points
+directly. Existing output files are preserved; completed exports are installed
+from a temporary sibling file. Exit codes: 0 success, 2 input, 3 output I/O.
 
-Run `python3 scripts/check.py` for formatting, lint, compilation and CLI smoke checks.
-The tracked `.decapod/config.toml` preserves portable product context and the
-check command. Full Decapod PR readiness still needs a reviewed execution profile;
-no machine-specific tool paths or execution state are committed.
+The library exposes the same primitives:
 
-Development checks:
+```rust
+use jalapeno::{audio::Tone, visual::Icon};
+let mut wav = Vec::new();
+Tone::default().write_wav(&mut wav)?;
+let svg = Icon::default().svg()?;
+let contour = Icon::default().points(128)?;
+# Ok::<(), std::io::Error>(())
+```
+
+This is an intentionally tight first pass, version `0.1.0`, under the MIT license.
+Publishing is disabled until a reviewed release process is ready. The complete
+original toolkit brief—music sequencing, recipes, richer audiovisual synthesis,
+Godot/Unity/Unreal, PNG and native releases—is preserved as future requirements
+in the [Decapod specs](.decapod/managed/specs/README.md). These are not current
+features. Identical inputs reproduce the intended output; cross-platform floating
+math is not promised bit-identical.
+
+Run the complete build/lint/test/export check:
 
 ```sh
-cargo fmt --all -- --check
-cargo clippy --all-targets -- -D warnings
-cargo test
+python3 scripts/check.py
 ```
 
-The full original brief is accounted for across the specs, including the music,
-visual, engine integration, open-source release, and evidence requirements. MIT
-licensed. Contributions and future implementation should use Conventional Commits
-and GitHub PR review; neither a specification nor a task claim proves a feature
-works.
+It decodes generated WAV and SVG, checks pitch/partials, boundaries, fades,
+repeatability, invalid inputs and preservation of existing output. GitHub CI runs
+the same script on Linux, macOS and Windows. This first pass has no engine or
+release assurance claim.
+
+Decapod's reviewed local readiness profile currently targets macOS ARM64 with
+Xcode at its standard location and Rust 1.99.0 (`b940084d7`). To prepare it:
+
+```sh
+python3 scripts/prepare-proof.py
+# Checkpoint/commit changes through the repository governance workflow, then:
+decapod validate
+```
+
+Preparation copies already installed Rust tools to a fixed temporary prefix and
+verifies their bytes. It performs no download or application build. The proof
+contract records standardized installation paths, not a user's home directory,
+credentials or machine state. Decapod measures declared tools before/after the
+check, runs against an immutable source snapshot, and keeps generated outputs in
+fresh scratch. Other platforms can run `scripts/check.py`; adding native Decapod
+profiles remains separate work. GitHub PR review is the acceptance boundary.

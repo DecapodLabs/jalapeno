@@ -2,9 +2,36 @@
 
 ## State Machines
 
-The only runtime semantics are argument recognition and process output in
-`src/main.rs`. No synthesis, seed handling, mathematical output or recipe
-compatibility is implemented or promised by version `0.1.0` in this scaffold.
+Current rendering is synchronous: parse -> validate -> render to a temporary
+sibling -> flush/sync/close -> install at an absent output path -> cleanup.
+Invalid input exits before output creation. A Rust caller can export to its own
+writer or consume icon points/SVG directly without CLI filesystem operations.
+
+## Implemented numerical behavior
+
+`audio::Tone` sums sine partials at integer multiples of the fundamental. Signed
+amplitudes are normalized by max(1, sum(abs(amplitudes))); zero gain/amplitudes
+produce silence. Terms at or above sample-rate/2 are omitted with their weight
+retained in normalization. A five-millisecond raised-cosine fade (shortened for
+small durations) gives exact zero endpoints. Float samples round to PCM16 using
+32767 full scale. This limits simple oscillator aliasing, not all envelope-sideband
+energy; perfect bandlimiting and hard real-time safety are not claimed.
+
+Sample rate is 8000..192000, fundamental is finite and >=1 Hz but below Nyquist,
+duration 0.01..600 seconds, gain 0..1, and 1..32 finite amplitudes in -1..1.
+Output length is ceil(seconds * sample_rate). Work is limited to 200 million
+sample-partial pairs; scratch output storage is always 2048 bytes.
+
+`visual::Icon` samples x=cos(t)+a*cos(k*t), y=sin(t)-a*sin(k*t), applies rotation,
+scales by 0.32*canvas size and centers the result. Circle uses a=0; seed uses
+k=3,a=0.2; spark uses k=5,a=0.28. Size is 16..2048, rotation finite within +/-tau,
+and requested samples 32..4096. SVG samples 128 points and closes the contour.
+Coordinates use six decimals, fixed fill/stroke colors and a two-pixel round stroke.
+
+Same inputs on the same compatible binary repeat exactly in tests. Floating
+trigonometry is not claimed bit-identical across platforms or compiler versions;
+no published cross-platform tolerance has yet been measured. Seeded generation,
+recipe compatibility and a quantified cross-platform policy remain future work.
 
 ## Required future audio semantics
 
@@ -55,14 +82,16 @@ by this first pass.
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
 
 ## Invariants
 
-Current behavior terminates after one response, performs no synthesis or external
-I/O beyond process text streams, and does not publish. Future mathematical,
-determinism and bounded-resource invariants are obligations described above,
-not established properties of an absent implementation.
+Validated tones cannot exceed their gain headroom before PCM rounding; output
+endpoints are zero. Work and memory are bounded and invalid input emits no bytes.
+Validated icon contours remain within the canvas with stroke margin. The core
+uses no unsafe code, external asset inputs, networking or engine dependency.
+Publication remains disabled. Broader numerical/schema guarantees above remain
+future obligations rather than properties of absent features.

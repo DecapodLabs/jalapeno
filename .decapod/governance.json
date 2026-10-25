@@ -10,12 +10,12 @@
   },
   "claims": {
     "core-contract": {
-      "statement": "The original synthesis brief is preserved as planned requirements; this change implements only a minimal CLI entrypoint and aligned specifications",
-      "falsifier": "Specs omit a major prompt requirement or advertise synthesis, exports, adapters or publishing as already implemented",
-      "status": "supported",
+      "statement": "The dependency-free Rust library and CLI generate bounded additive PCM WAV tones and harmonic SVG icons, with decoded-export and numerical tests; the rest of the original brief remains roadmap.",
+      "falsifier": "Tone/icon exports fail decoded format, mathematical, resource, input or output-preservation checks, or specs misstate current scope",
+      "status": "open",
       "proof_refs": [
-        ".decapod/managed/specs/VALIDATION.md",
-        "scripts/check.py"
+        "scripts/check.py",
+        "tests/synthesis.rs"
       ]
     }
   },
@@ -58,6 +58,15 @@
       "input_digest": "sha256:621c261438f8370684c14621bdc65c6dbe1c72cba6144be1025a67c53e1bd309",
       "proof_refs": [
         ".decapod/managed/specs/VALIDATION.md"
+      ]
+    },
+    {
+      "id": "functional-tones-icons",
+      "summary": "Implement the scoped audio/WAV and harmonic icon/SVG core and CLI, focused tests, CI and reviewed native proof contract; verification pending",
+      "input_digest": "sha256:ead1a42f4e8fc91e1d519c27d1f5a0c3435de8d73671a63343e084a9a6992e72",
+      "proof_refs": [
+        "scripts/check.py",
+        "tests/synthesis.rs"
       ]
     }
   ],
@@ -136,55 +145,50 @@
       },
       "deferred_questions": [],
       "human_questions": [],
-      "intent": "User narrowed implementation to a very simple initial main.rs. Account for the full original audiovisual toolkit prompt in aligned Decapod specs as future product requirements, explicitly separated from current scaffold.",
+      "intent": "Deliver a tight working first pass: a small dependency-free Rust library and CLI for additive tones to PCM WAV and harmonic icons to SVG, with real export validation and aligned Decapod specs; preserve the larger original brief as roadmap.",
       "phases": [],
       "proof_hooks": [
-        "cargo fmt --all -- --check",
-        "cargo clippy --all-targets -- -D warnings",
-        "cargo test"
+        "python3 scripts/check.py"
       ],
       "schema_version": "1.1.0",
       "spec_reviews": [
         {
           "disposition": "updated",
           "path": ".decapod/managed/specs/ARCHITECTURE.md",
-          "reason": "Compared Cargo.toml and main.rs: dependency-free binary, no current library/adapters or synthesis; future component boundaries preserve original brief.",
-          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
-          "spec_material_hash": "a483e1d3630704a374fee0cf1034cf8dd92c1b6812b89a48d3760dbe4c0b5605"
+          "reason": "One dependency-free package now exposes audio and visual library modules consumed by the CLI; constant-memory tone export and bounded icon sampling match source. Native proof tooling is outside the application runtime.",
+          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "spec_material_hash": "cdfae2b04e7478cb6d4cb79fb52a9ce4559e1f1fcd5666df4073253004b54b98"
         },
         {
           "disposition": "updated",
           "path": ".decapod/managed/specs/INTERFACES.md",
-          "reason": "Compared main.rs argument matching and Cargo metadata: only help/version and usage exit 2 are implemented; Rust/recipe/engine APIs are explicitly planned.",
-          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
-          "spec_material_hash": "b2efe913ac7b0a9d1dcedbfeb82901f7be81a4a21f70b0c73dbefdd15a2dfe1f"
+          "reason": "Compared implemented Tone/Icon public APIs, CLI parser and atomic file helper: WAV/SVG commands, defaults, bounds, ownership and exit codes are documented; recipes and engines remain planned.",
+          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "spec_material_hash": "52944514fb9cc590768027427f500b9359392d9dacaf5e84a21ae55437c70972"
         },
         {
           "disposition": "updated",
           "path": ".decapod/managed/specs/SECURITY.md",
-          "reason": "Current code has no recipe parser, exports, FFI, auth or network. Private reference provenance and future resource/unsafe/release safeguards are requirements, not implemented capabilities.",
-          "reviewed_code_fingerprint": "9f304068b8a6db75eeba7619efccbd478ee5965f41633d1a59a452343388cbf6",
-          "spec_material_hash": "8efa870e8482a28ebbb74247b1018666908c1f05c8d05b2168e7efe42c296c81"
+          "reason": "Checked finite/range/work bounds, fixed SVG markup, safe core, create-new temporary output and non-replacing hard-link install. Proof tools use standard external locations and no credentials; host Xcode runtime trust is explicit.",
+          "reviewed_code_fingerprint": "a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3",
+          "spec_material_hash": "6d39f2ed448d4970d51995a4aa08881e8f333fd276d9d8a21000bdec373c010b"
         }
       ],
       "state": "APPROVED",
       "stop_conditions": [],
-      "title": "Initial entrypoint and complete product context",
+      "title": "Functional tones and harmonic icons",
       "todo_ids": [
         "feat_01m5r5sjqedjj4fq"
       ],
       "unknowns": [],
       "unresolved_contradictions": [],
-      "updated_at": "1792887476Z"
+      "updated_at": "1792889456Z"
     },
     "trajectory": {
       "active_boundaries": [
         "Current claimed task and isolated work branch"
       ],
-      "artifact_hash": "sha256:8ef0ac316fcb2a902a113c62c99c5dcb176140b7ccef1737ec663d12c6a5f6ad",
-      "blockers": [
-        "Full repository readiness requires reviewed execution profile; local profile absolute tool bindings are not committed as machine state."
-      ],
+      "artifact_hash": "sha256:e749dca2f92d873991bb6e78e66f6d8631a4284bcae0aa2f551845d9af327a6d",
       "checks": [
         {
           "name": "cli",
@@ -203,7 +207,7 @@
           "status": "passed"
         }
       ],
-      "current_phase": "verification",
+      "current_phase": "implementation",
       "custody": {
         "events": [
           {
@@ -238,10 +242,17 @@
             "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
             "kind": "trajectory_step_recorded",
             "sequence": 6
+          },
+          {
+            "detail": "trajectory:branch_01M5R5T8TGW1ZXZ79D8W0R8620",
+            "event_id": "event:7",
+            "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
+            "kind": "trajectory_step_recorded",
+            "sequence": 7
           }
         ],
         "knowledge_candidates": [],
-        "next_sequence": 6,
+        "next_sequence": 7,
         "schema_version": "1.0.0",
         "trajectories": {
           "branch_01M5R5T8TGW1ZXZ79D8W0R8620": {
@@ -299,6 +310,24 @@
                 ],
                 "sequence": 6,
                 "validation_findings": []
+              },
+              {
+                "action": "implementation",
+                "custody_event_id": "event:7",
+                "observations": [
+                  "src/audio.rs",
+                  "src/visual.rs",
+                  "src/main.rs",
+                  "tests/synthesis.rs",
+                  ".decapod/config.toml",
+                  "User clarified tones and icons; implemented reusable core and CLI, atomic non-replacing output, tests, shared CI script and standardized external proof-tool prefix. Earlier absolute-path blocker is addressed by declarative standard installation locations, without personal paths or runtime state in Git."
+                ],
+                "proof_refs": [],
+                "scope": [
+                  "root"
+                ],
+                "sequence": 7,
+                "validation_findings": []
               }
             ]
           }
@@ -310,6 +339,7 @@
       ],
       "destination": "pull request",
       "evidence": [
+        "User clarified tones and icons; implemented reusable core and CLI, atomic non-replacing output, tests, shared CI script and standardized external proof-tool prefix. Earlier absolute-path blocker is addressed by declarative standard installation locations, without personal paths or runtime state in Git.",
         "User reduced scope to initial main.rs and full prompt context in specs; unverified broader draft moved outside repository",
         "scripts/check.py passed fmt, clippy, cargo test/build and CLI help/version/error smoke; no algorithm tests exist. Full PR gate awaits a portable reviewed execution profile; machine-local tool bindings excluded from Git.",
         "validation epoch ve_e9fdf33b77006135 completed with zero failures"
@@ -317,16 +347,22 @@
       "inspected_files": [],
       "intent_id": "intent:change_01M5R5T8R5NR7NND08DPFZ3XF9",
       "modified_files": [
+        ".decapod/config.toml",
         ".decapod/governance.json",
         ".decapod/managed/specs/INTENT.md",
-        "src/main.rs"
+        "src/audio.rs",
+        "src/main.rs",
+        "src/visual.rs",
+        "tests/synthesis.rs"
       ],
       "next_transitions": [
         "Refine plan and declare falsifiable checks",
+        "Run exact-candidate native readiness and inspect real export tests",
         "Verify minimal CLI and spec alignment",
         "publish"
       ],
       "repo_scope": [
+        "Small audio/WAV and visual/SVG core, CLI, tests, native readiness, CI, aligned specs",
         "root"
       ],
       "run_id": "branch_01M5R5T8TGW1ZXZ79D8W0R8620",

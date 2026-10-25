@@ -2,19 +2,53 @@
 
 ## Inbound Contracts
 
-`src/main.rs::main` implements the following complete current contract:
+Current CLI (`src/main.rs`):
 
-| Invocation | Output | Exit |
-| --- | --- | --- |
-| `jalapeno` | Help on stdout | 0 |
-| `jalapeno --help` or `-h` | Same help on stdout | 0 |
-| `jalapeno --version` or `-V` | `jalapeno 0.1.0` from Cargo package metadata | 0 |
-| Other arguments, including extra arguments | Fixed usage error on stderr | 2 |
+```sh
+jalapeno tone --hz 440 --seconds 0.4 --partials 1,0.3,0.1 -o tone.wav
+jalapeno icon --shape seed --size 128 --phase 0.3 -o seed.svg
+```
 
-No asset generation command currently exists. `Cargo.toml` exposes no library,
-features or ABI. The following contracts are proposals preserved from the brief.
+`tone` accepts `--hz`, `--seconds`, `--rate`, `--gain`, `--partials` (comma-separated
+signed amplitudes), and `-o`/`--output`. Defaults are 440 Hz, 0.25 seconds, 48000 Hz,
+0.6 gain and one fundamental partial. `icon` accepts `--shape circle|seed|spark`,
+`--size`, `--phase` (radians) and output; defaults are seed, 128 and zero rotation.
+Output is required. Repeated options and options for the wrong command fail.
+No arguments or `--help`/`-h` print help; `--version`/`-V` use Cargo metadata.
 
-## Planned CLI
+The public library exposes `audio::Tone::{validate,write_wav}` and
+`visual::Icon::{validate,points,svg}`, with `Shape` and pixel-coordinate `Point`.
+Tone exports stream into any `std::io::Write`; icon geometry/SVG can be consumed
+without files. The library performs validation and uses `io::Result` for errors.
+There is no stable recipe format or engine ABI in this slice.
+
+## Outbound Dependencies
+
+Only the Rust standard library is required at runtime. WAV is mono PCM16,
+little-endian RIFF/WAVE; SVG is standalone numeric path markup with fixed colors
+and no external resources. There is no encoder executable, network, daemon,
+server, database, telemetry, font or engine dependency.
+
+## Data Ownership
+
+The caller owns `Tone` and its harmonic vector. WAV export borrows the writer.
+`Icon::points` returns an owned point vector and `Icon::svg` an owned String.
+The CLI owns files and writes a temporary sibling, flushes/syncs/closes it, then
+hard-links it to an absent destination and removes the temporary name. Existing
+outputs are preserved. No native ownership crosses an FFI boundary yet.
+
+## Failure Semantics
+
+Exit 0 means success; exit 2 means invalid command/options or synthesis parameters;
+exit 3 means output I/O failure. Errors go to stderr; success prints the output
+path. Input validation precedes output creation. A destination that already exists
+is an output error and remains unchanged. Ordinary write/link failures remove
+the temporary file; a killed process may leave a temporary sibling for inspection.
+The CLI does not replace stale temporary files or unsupported hard-link semantics.
+
+## Planned CLI, recipes and integrations
+
+The complete original brief remains future scope:
 
 ```sh
 jalapeno render audio music.json -o music.wav
@@ -25,60 +59,29 @@ jalapeno validate recipe.json
 jalapeno inspect recipe.json
 ```
 
-Use a consistent command design, useful field-oriented errors, documented exit
-codes, machine-readable diagnostics and deterministic filenames when requested.
-PNG/extra codecs should fail clearly when their explicit feature is unavailable.
-Define overwrite behavior and resource budgets before implementing export.
-
-## Planned library and recipes
-
-Expose reusable instruments/oscillators, score events, envelopes, modulation,
-effects, harmonic geometry/coefficient manipulation, morphing and time sampling.
-Provide direct buffers and geometry as well as exporters. A recipe describes
-synthesis, not a pre-rendered asset. Specify schema version, seed, mathematical
-parameters, validation, supported versions and compatibility policy. Document
-cross-platform tolerances rather than asserting universal floating-point identity.
-The exact Rust types and JSON layout remain undecided; examples in the original
-brief do not freeze an unimplemented API.
-
-## Planned engine/ABI contracts
+Use consistent commands, field-oriented errors, documented exit codes,
+machine-readable diagnostics and deterministic filenames when requested. Add a
+versioned validated schema containing synthesis parameters and seed, not encoded
+assets. Formalize Rust API compatibility and cross-platform numerical tolerances.
+Keep optional PNG/codecs separate from the default library.
 
 Godot: Godot 4 gdext/GDExtension API for images, textures, PCM and UI geometry,
-with a minimal generated button and interaction-sound demo.
+with a generated button and interaction-sound demo.
 
-Unity: stable versioned C ABI for audio and visual data with explicit lengths,
-capacities, ownership, release functions and error results; C# P/Invoke adapter
-and a procedural button/audio demo. Unsafe Rust is isolated and tested.
+Unity: stable versioned C ABI for audio/visual data, explicit lengths/capacities,
+ownership/release and errors; thin C# P/Invoke and procedural button/audio demo.
+Unsafe Rust belongs in isolated tested adapters.
 
-Unreal: reuse the same ABI with thin C++ wrappers; Unreal owns engine objects.
-A documented practical path or scaffold is acceptable initially, with actual
-compilation/engine verification identified separately. Adapters depend on the core,
-remain independently versionable and need not initially publish to crates.io.
-
-
+Unreal: reuse the ABI with thin C++ wrappers; Unreal owns engine objects. Initially
+a practical documented/scaffolded integration is acceptable, with actual build/
+engine proof reported separately. All adapters use core algorithms, version
+independently and may remain unpublished initially.
 
 <!-- decapod:codebase-attestation:start -->
 
 ## Codebase Attestation
 
-- Repository signal fingerprint: `528100f5424d15bf5d4859440a51e0e33e7794288a25ab041050f96ed5d99a01`
-- Significant implementation surfaces: `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (1 files), `src/` (1 files)
+- Repository signal fingerprint: `a695576554ce8de4e235c7eef5eb01efb229a04ebdea09fc7e921f4f92a786b3`
+- Significant implementation surfaces: `.github/` (1 files), `Cargo.lock/` (1 files), `Cargo.toml/` (1 files), `README.md/` (1 files), `scripts/` (2 files), `src/` (4 files), `tests/` (1 files)
 - Refreshed from the current codebase by `decapod rpc --op specs.refresh`
 <!-- decapod:codebase-attestation:end -->
-
-## Outbound Dependencies
-
-The current program calls only Rust's standard library and process stdout/stderr.
-No external executable, crate dependency, service or engine is used at runtime.
-
-## Data Ownership
-
-`main` owns its argument vector until process exit. Output is text; no borrowed
-buffer or native ownership crosses a public boundary. Future ABI ownership must
-be specified explicitly before adapter implementation.
-
-## Failure Semantics
-
-Unsupported arguments emit a fixed stderr diagnostic and exit 2. Help/version
-exit 0. Recipe, rendering, export and engine error semantics are future design
-work; no success path for those operations currently exists.
